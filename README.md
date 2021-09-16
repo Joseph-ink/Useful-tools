@@ -23,7 +23,6 @@ chmod +x besttrace
 
 特点
 测试网络上传/下载速率的一款工具
-Python2.4至3.4版本下均可运行
 
 Speedtest-Cli
 ```
