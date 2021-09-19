@@ -12,12 +12,23 @@ Besttrace4Linux
 wget http://cdn.ipip.net/17mon/besttrace4linux.zip
 #解压
 unzip besttrace4linux.zip
+```
+
+Linux(X86)
+```
 #授权
 chmod +x besttrace
 #使用
 ./besttrace -q 1 这里是目标IP
 ```
 
+Linux(ARM)
+```
+#授权
+chmod +x besttracearm
+#使用
+./besttracearm -q 1 这里是目标IP
+```
 
 # Speedtest-Cli
 
