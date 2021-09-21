@@ -44,3 +44,10 @@ chmod a+rx speedtest.py
 #执行
 python3 speedtest.py
 ```
+
+```
+cd /usr/local/bin/
+wget https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.11.2/shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar.xz
+xz -d shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar.xz
+tar xvf shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar
+```
