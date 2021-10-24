@@ -60,8 +60,14 @@ tar xvf shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar
 /usr/local/qcloud/stargate/admin/uninstall.sh
 /usr/local/qcloud/YunJing/uninst.sh
 /usr/local/qcloud/monitor/barad/admin/uninstall.sh
+```
+
+```
 #停用服务
 systemctl stop tat_agentsystemctl disable tat_agentrm -f /etc/systemd/system/tat_agent.service
+```
+
+```
 #删除Cron中残留的定时任务
 crontab -e
 ```
