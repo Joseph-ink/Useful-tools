@@ -51,3 +51,17 @@ wget https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.11.2/s
 xz -d shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar.xz
 tar xvf shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar
 ```
+
+# 卸载腾讯云VPS服务器自带监控插件
+
+执行以下命令
+```
+#卸载脚本
+/usr/local/qcloud/stargate/admin/uninstall.sh
+/usr/local/qcloud/YunJing/uninst.sh
+/usr/local/qcloud/monitor/barad/admin/uninstall.sh
+#停用服务
+systemctl stop tat_agentsystemctl disable tat_agentrm -f /etc/systemd/system/tat_agent.service
+#删除Cron中残留的定时任务
+crontab -e
+```
