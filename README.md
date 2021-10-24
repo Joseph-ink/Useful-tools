@@ -52,7 +52,7 @@ xz -d shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar.xz
 tar xvf shadowsocks-v1.11.2.aarch64-unknown-linux-gnu.tar
 ```
 
-# 卸载腾讯云VPS服务器自带监控插件
+# 卸载腾讯云服务器自带监控
 
 执行以下命令
 ```
