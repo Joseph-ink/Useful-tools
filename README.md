@@ -71,3 +71,8 @@ systemctl stop tat_agentsystemctl disable tat_agentrm -f /etc/systemd/system/tat
 #删除Cron中残留的定时任务
 crontab -e
 ```
+
+```
+#也可运行脚本
+wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/uninstall.sh" && chmod 700 /root/uninstall.sh && /root/uninstall.sh
+```
