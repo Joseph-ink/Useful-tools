@@ -89,8 +89,9 @@ chmod +x ehco.sh
 ./ehco.sh
 ```
 
-```
+
 arm64架构
+```
 wget --no-check-certificate -O ehco.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ehco_arm64.sh
 chmod +x ehco.sh
 ./ehco.sh
