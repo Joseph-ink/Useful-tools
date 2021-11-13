@@ -79,3 +79,21 @@ crontab -e
 ```
 wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/uninstall.sh" && chmod 700 /root/uninstall.sh && /root/uninstall.sh
 ```
+
+## echo转发一键脚本
+
+X86架构
+```
+wget --no-check-certificate -O ehco.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ehco_amd64.sh
+chmod +x ehco.sh
+./ehco.sh
+```
+
+arm64架构
+wget --no-check-certificate -O ehco.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ehco_arm64.sh
+chmod +x ehco.sh
+./ehco.sh
+```
+
+
+
