@@ -96,3 +96,15 @@ wget --no-check-certificate -O ehco.sh https://raw.githubusercontent.com/Joseph-
 chmod +x ehco.sh
 ./ehco.sh
 ```
+
+## 切换AWS VPS登录账号至root
+
+请注意修改以下“password”为你需要设置的密码，请勿直接使用，防止简单密码爆破；
+请切换至root账号或者使用sudo运行代码。
+
+```
+echo root:password |sudo chpasswd root
+sed -i 's/^.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config;
+sed -i 's/^.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
+reboot
+```
