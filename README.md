@@ -108,3 +108,30 @@ sed -i 's/^.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config;
 sed -i 's/^.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 reboot
 ```
+macOS下解决"pip command not found"的办法
+
+首先查看py3.10的包文件夹路径
+打开终端
+```
+$ python3
+>>> import sys
+>>> print(sys.path)
+```
+复制最后一个路径，我的是
+```
+/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages
+```
+直接终端执行
+```
+python3 -m pip install 包名
+```
+即可安装完成
+
+更新pip
+```
+python3 -m pip install --upgrade pip
+```
+查看需要更新的包
+```
+pip list --outdated
+```
