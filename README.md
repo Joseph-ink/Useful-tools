@@ -108,7 +108,7 @@ sed -i 's/^.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config;
 sed -i 's/^.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 reboot
 ```
-macOS下解决"pip command not found"的办法
+## macOS下解决"pip command not found"的办法
 
 首先查看py3.10的包文件夹路径
 打开终端
