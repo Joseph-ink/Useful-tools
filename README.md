@@ -135,3 +135,9 @@ python3 -m pip install --upgrade pip
 ```
 pip list --outdated
 ```
+
+
+## BBR优化脚本
+```
+bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
+```
