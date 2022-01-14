@@ -135,7 +135,10 @@ python3 -m pip install --upgrade pip
 ```
 pip list --outdated
 ```
-
+这个命令或许也有用
+```
+/Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pip install --upgrade pip
+```
 
 ## BBR优化脚本
 ```
