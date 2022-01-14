@@ -140,6 +140,9 @@ pip list --outdated
 /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pip install --upgrade pip
 ```
 
+## How do I fix the syntax error in pip?
+The pip install invalid syntax error is raised when you try to install a Python package from the interpreter. To fix this error, exit your interpreter and run the pip install command from a command line shell.
+
 ## BBR优化脚本
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
