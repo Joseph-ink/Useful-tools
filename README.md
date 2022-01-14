@@ -135,6 +135,10 @@ python3 -m pip install --upgrade pip
 ```
 pip list --outdated
 ```
+更新单个包（此处以更新pip为例）
+```
+pip install --upgrade pip
+```
 这个命令或许也有用
 ```
 /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pip install --upgrade pip
