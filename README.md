@@ -10,14 +10,17 @@ Linux(X86/ARM)/Mac/BSD 系统环境下发起 traceroute 请求
 
 Besttrace4Linux
 ```
-#下载
+#可下载完整工具包，包含完整支持（CDN速度较慢）
 wget http://cdn.ipip.net/17mon/besttrace4linux.zip
-#解压
+#文件需要解压
 unzip besttrace4linux.zip
 ```
 
+也可分系统及架构直接下载
 Linux(X86)
 ```
+#下载
+wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttrace
 #授权
 chmod +x besttrace
 #使用
@@ -26,6 +29,8 @@ chmod +x besttrace
 
 Linux(ARM)
 ```
+#下载
+wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
 #授权
 chmod +x besttracearm
 #使用
