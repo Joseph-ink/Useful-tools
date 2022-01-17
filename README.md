@@ -17,6 +17,7 @@ unzip besttrace4linux.zip
 ```
 
 也可分系统及架构直接下载
+
 Linux(X86)
 ```
 #下载
