@@ -3,7 +3,7 @@
 
 ## BBR开启和选择模式脚本 
 ```
-wget -N --no-check-certificate "https://github.000060000.xyz/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh 
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp.sh" && chmod +x tcp.sh && ./tcp.sh 
 ```
 
 ## BBR优化脚本 
