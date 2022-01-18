@@ -11,6 +11,32 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
 
+## 使用ACME.sh脚本进行TLS证书申请
+
+安装 ACME.sh脚本
+```
+curl https://get.acme.sh | sh
+```
+
+设置 Cloudflare API 令牌（依照自己账号的信息）
+```
+export CF_Key="4f9794c701b6e27884f0da0bab6454de07552"
+export CF_Email="bozai@v2rayssr.com"
+```
+
+按ZeroSSL要求注册至自己的邮箱
+```
+~/.acme.sh/acme.sh --register-account -m my@example.com
+```
+
+验证DNS并申请证书
+```
+~/.acme.sh/acme.sh --issue --dns dns_cf -d bozai3.xyz
+mkdir /root/cert
+~/.acme.sh/acme.sh --installcert -d bozai3.xyz --key-file /root/cert/private.key --fullchain-file /root/cert/cert.crt
+~/.acme.sh/acme.sh --upgrade --auto-upgrade
+chmod -R 755 /root/cert
+```
 
 ## Besttrace4Linux
 
