@@ -1,5 +1,14 @@
 一些工具的整理，方便个人对于vps的管理
 
+
+## BBR开启和选择模式脚本 
+wget -N --no-check-certificate "https://github.000060000.xyz/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh 
+
+## BBR优化脚本 
+bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
+
+
+
 ## Besttrace4Linux
 
 特点
