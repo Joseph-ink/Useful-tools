@@ -11,12 +11,6 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
 
-## 提高内核缓冲大小可以显著提升UDP性能表现
-```
-sysctl -w net.core.rmem_max=26214400
-sysctl -w net.core.rmem_default=26214400
-```
-
 ## 使用ACME.sh脚本进行TLS证书申请
 
 安装 ACME.sh脚本
