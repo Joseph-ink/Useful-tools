@@ -18,6 +18,11 @@ bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 curl https://get.acme.sh | sh
 ```
 
+或者试试这个，特别是国内环境
+```
+wget -O -  https://get.acme.sh | sh -s email=my@example.com
+```
+
 设置 Cloudflare API 令牌（依照自己账号的信息）
 ```
 export CF_Key="4f9794c701b6e27884f0da0bab6454de07552"
