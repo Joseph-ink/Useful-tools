@@ -43,7 +43,7 @@ mkdir /root/cert
 chmod -R 755 /root/cert
 ```
 
-关闭oracle防火墙
+## 关闭oracle防火墙
 ```
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/multi.sh && chmod +x multi.sh && ./multi.sh
 ```
