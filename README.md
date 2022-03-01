@@ -15,11 +15,11 @@ bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 
 AMD64
 ```
-wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-amd64.sh && bash coal.sh
+wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-amd64.sh && bash coal-amd64.sh
 ```
 ARM64
 ```
-wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-arm64.sh && bash coal.sh
+wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-arm64.sh && bash coal-arm64.sh
 ```
 ### 使用方法
 ```
