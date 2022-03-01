@@ -12,9 +12,16 @@ bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
 
 ## CoalRelay隧道
+
+AMD64
 ```
-wget https://coal.coalcloud.net/coal.sh && bash coal.sh
+wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-amd64.sh && bash coal.sh
 ```
+ARM64
+```
+wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-arm64.sh && bash coal.sh
+```
+### 使用方法
 ```
 源节点+端口----目标节点+端口----监听节点+端口
 若目标节点即为最终落地节点，则配置监听节点ip:127.0.0.1，监听端口为架设服务的端口
@@ -24,7 +31,6 @@ wget https://coal.coalcloud.net/coal.sh && bash coal.sh
 重启命令:systemctl restart coal
 查看状态:systemctl status coal
 ```
-
 
 ## 使用ACME.sh脚本进行TLS证书申请
 
