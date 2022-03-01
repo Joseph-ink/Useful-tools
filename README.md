@@ -11,6 +11,21 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
 
+## CoalRelay隧道
+```
+wget https://coal.coalcloud.net/coal.sh && bash coal.sh
+```
+```
+源节点+端口----目标节点+端口----监听节点+端口
+若目标节点即为最终落地节点，则配置监听节点ip:127.0.0.1，监听端口为架设服务的端口
+```
+```
+配置文件:/etc/CoalRelay/config.json
+重启命令:systemctl restart coal
+查看状态:systemctl status coal
+```
+
+
 ## 使用ACME.sh脚本进行TLS证书申请
 
 安装 ACME.sh脚本
