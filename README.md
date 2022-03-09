@@ -107,6 +107,13 @@ chmod +x besttracearm
 ./besttracearm -q 1 这里是目标IP
 ```
 
+快快使用worsttrace linux x86
+```
+wget https://wtrace.app/packages/linux/worsttrace -O /usr/local/bin/worsttrace
+chmod a+x /usr/local/bin/worsttrace
+worsttrace ip
+```
+
 ## Speedtest-Cli
 
 特点
