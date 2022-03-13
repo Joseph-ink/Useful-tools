@@ -2,8 +2,15 @@
 
 
 ## BBR开启和选择模式脚本 
+
+更换Xanmod real-time高响应内核
 ```
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp.sh" && chmod +x tcp.sh && ./tcp.sh 
+```
+
+更换Xanmod real-time高响应内核（最新开发版）
+```
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_edge.sh" && chmod +x tcp_edge.sh && ./tcp_edge.sh
 ```
 
 ## BBR优化脚本 
