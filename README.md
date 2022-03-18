@@ -251,3 +251,7 @@ The pip install invalid syntax error is raised when you try to install a Python 
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
+Cloudflare IPv6优选脚本
+```
+./CloudflareST -f ipv6.txt -ipv6
+```
