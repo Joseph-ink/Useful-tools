@@ -13,6 +13,11 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_edge.sh" && chmod +x tcp_edge.sh && ./tcp_edge.sh
 ```
 
+查看匹配内核
+```
+ls /boot/vmlinuz-*
+```
+
 ## BBR优化脚本 
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
