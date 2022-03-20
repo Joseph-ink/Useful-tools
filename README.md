@@ -252,12 +252,25 @@ pip install --upgrade pip
 ## How do I fix the syntax error in pip?
 The pip install invalid syntax error is raised when you try to install a Python package from the interpreter. To fix this error, exit your interpreter and run the pip install command from a command line shell.
 
-## BBR优化脚本
+
+## Cloudflare IPv6优选脚本
 ```
-bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
-```
-Cloudflare IPv6优选脚本
-```
+# 如果是第一次使用，则建议创建新文件夹（后续更新请跳过该步骤）
+mkdir CloudflareST
+
+# 进入文件夹（后续更新，只需要从这里重复下面的下载、解压命令即可）
+cd CloudflareST
+
+# 下载 CloudflareST 压缩包
+wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.0.3/CloudflareST_linux_amd64.tar.gz
+
+# 解压
+tar -zxf CloudflareST_linux_amd64.tar.gz
+
+# 赋予执行权限
+chmod +x CloudflareST
+
+# 运行IPv6测试
 ./CloudflareST -f ipv6.txt -ipv6
 ```
 
