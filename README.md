@@ -23,7 +23,7 @@ ls /boot/vmlinuz-*
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
-MOM 采用bbr+fq_pie优化加速
+MOD 采用bbr+fq_pie优化加速
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_pie.sh)
 ```
