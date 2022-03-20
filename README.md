@@ -18,7 +18,12 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 ls /boot/vmlinuz-*
 ```
 
-## BBR优化脚本 
+## BBR优化脚本
+原版，采用bbr+fq优化加速
+```
+bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
+```
+MOM 采用bbr+fq_pie优化加速
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
