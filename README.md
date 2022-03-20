@@ -255,3 +255,16 @@ Cloudflare IPv6优选脚本
 ```
 ./CloudflareST -f ipv6.txt -ipv6
 ```
+
+## Oracle Cloud VPS在选择ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口的限制命令
+```
+#开放所有端口
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -F
+#Oracle自带的Ubuntu镜像默认设置了Iptable规则，关闭它
+apt-get purge netfilter-persistent
+#强制删除
+rm -rf /etc/iptables && reboot
+```
