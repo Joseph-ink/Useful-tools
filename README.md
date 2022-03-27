@@ -18,6 +18,16 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 ls /boot/vmlinuz-*
 ```
 
+更新CPU微码
+```
+#查看CPU信息
+cat  /proc/cpuinfo
+#intel
+apt install intel-microcode iucode-tool
+#amd
+apt install amd64-microcode
+```
+
 ## BBR优化脚本
 原版，采用bbr+fq优化加速
 ```
