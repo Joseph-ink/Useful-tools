@@ -191,6 +191,30 @@ pip install --upgrade pip
 ## How do I fix the syntax error in pip?
 The pip install invalid syntax error is raised when you try to install a Python package from the interpreter. To fix this error, exit your interpreter and run the pip install command from a command line shell.
 
+```
+列出可升级的包：
+pip list --outdated
+
+更新某一个模块,如'itchat'：　　　　　
+pip install --upgrade itchat
+
+升级pip自身
+pip install --upgrade pip 
+```
+
+## 批量更新
+```
+批量下载并更新：
+pip install pip-review
+pip-review --local --interactive
+pip-review --auto
+
+命令先全部下载所有待更新包后再安装，所以如果中间出错将全部安装失败
+查看出错的包名，先单独安装
+pip install --upgrade itchat
+然后重新运行
+pip-review --auto
+```
 
 ## Cloudflare IPv6优选脚本
 ```
