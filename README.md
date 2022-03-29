@@ -33,9 +33,9 @@ apt install amd64-microcode
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
-MOD 采用bbr+fq_pie优化加速
+MOD 集成各种队列算法
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_pie.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_mod.sh)
 ```
 
 ## CoalRelay隧道
