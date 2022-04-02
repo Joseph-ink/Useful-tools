@@ -47,7 +47,6 @@ sed -i 'net.ipv4.tcp_keepalive_probes' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_timestamps' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_syncookies' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_tw_reuse' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_tw_recycle' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_fin_timeout' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_max_syn_backlog' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_low_latency' /etc/sysctl.conf
@@ -80,7 +79,6 @@ net.ipv4.tcp_timestamps=1
 net.ipv4.tcp_window_scaling=1
 net.ipv4.tcp_syncookies=1
 net.ipv4.tcp_tw_reuse=1
-net.ipv4.tcp_tw_recycle=1
 net.ipv4.tcp_fin_timeout=30
 net.ipv4.tcp_max_syn_backlog=128
 net.ipv4.tcp_low_latency=0
