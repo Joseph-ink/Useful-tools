@@ -234,9 +234,9 @@ wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.0.3/Clo
 # 解压
 tar -zxf CloudflareST_linux_amd64.tar.gz
 
-#更换自选香港直连ipv6,或者本地上传txt
-#rm -rf ipv6.txt
-#wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ipv6.txt && chmod +x ipv6.txt
+# 更换自选香港直连ipv6,或者本地上传txt
+# rm -rf ipv6.txt
+# wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ipv6.txt && chmod +x ipv6.txt
 
 # 赋予执行权限
 chmod +x CloudflareST
