@@ -17,10 +17,10 @@ Forked from Neko Neko Cloud
 ############################################################
 "
 }
-tcp_tune(){ # 优化TCP窗口
+
+
+tcp_optimize(){ # 优化TCP窗口
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_mtu_probing/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rfc1337/d' /etc/sysctl.conf
@@ -35,17 +35,28 @@ sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
 sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
-sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+sed -i '/net.core.rmem_default/d' /etc/sysctl.conf
+sed -i '/net.core.wmem_default/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
+sed -i '/net.core.somaxconn/d' /etc/sysctl.conf
+sed -i 'net.core.optmem_max' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_mem' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_keepalive_time' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_keepalive_intvl' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_keepalive_probes' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_timestamps' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_syncookies' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_tw_reuse' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_tw_recycle' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_fin_timeout' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_max_syn_backlog' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_low_latency' /etc/sysctl.conf
+sed -i 'net.ipv4.ip_local_port_range' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
 net.ipv4.tcp_no_metrics_save=1
-net.ipv4.tcp_ecn=0
 net.ipv4.tcp_frto=0
 net.ipv4.tcp_mtu_probing=0
 net.ipv4.tcp_rfc1337=1
-net.ipv4.tcp_sack=1
-net.ipv4.tcp_fack=1
-net.ipv4.tcp_window_scaling=2
 net.ipv4.tcp_adv_win_scale=2
 net.ipv4.tcp_moderate_rcvbuf=1
 net.ipv4.tcp_rmem=4096 65536 37331520
@@ -54,8 +65,146 @@ net.core.rmem_max=37331520
 net.core.wmem_max=37331520
 net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
+net.core.rmem_default=212992
+net.core.wmem_default=212992
+net.core.netdev_max_backlog=10000
+net.core.somaxconn=2048
+net.core.optmem_max=81920
+net.ipv4.tcp_mem=5814 7754 11628
+net.ipv4.tcp_keepalive_time=1800
+net.ipv4.tcp_keepalive_intvl=30
+net.ipv4.tcp_keepalive_probes=3
+net.ipv4.tcp_sack=1
+net.ipv4.tcp_fack=1
+net.ipv4.tcp_timestamps=1
+net.ipv4.tcp_window_scaling=1
+net.ipv4.tcp_syncookies=1
+net.ipv4.tcp_tw_reuse=1
+net.ipv4.tcp_tw_recycle=1
+net.ipv4.tcp_fin_timeout=30
+net.ipv4.tcp_max_syn_backlog=128
+net.ipv4.tcp_low_latency=0
+net.ipv4.ip_local_port_range=1024 65000
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr_fq(){ # 启用BBR更换队列算法
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=0
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr_fq_pie(){ # 启用BBR更换队列算法
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=0
 net.core.default_qdisc=fq_pie
 net.ipv4.tcp_congestion_control=bbr
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr_cake(){ # 启用BBR更换队列算法
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=0
+net.core.default_qdisc=cake
+net.ipv4.tcp_congestion_control=bbr
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr2_fq(){ # 启用BBR2更换队列算法
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=0
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr2
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr2_fq_pie(){ # 启用BBR2更换队列算法
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=0
+net.core.default_qdisc=fq_pie
+net.ipv4.tcp_congestion_control=bbr2
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr2_cake(){ # 启用BBR2更换队列算法
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=0
+net.core.default_qdisc=cake
+net.ipv4.tcp_congestion_control=bbr2
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr2_fq_ecn(){ # 启用BBR2更换队列算法开启显示加速
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=1
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr2
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr2_fq_pie_ecn(){ # 启用BBR2更换队列算法开启显示加速
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=1
+net.core.default_qdisc=fq_pie
+net.ipv4.tcp_congestion_control=bbr2
+EOF
+sysctl -p && sysctl --system
+}
+
+bbr2_cake_ecn(){ # 启用BBR2更换队列算法开启显示加速
+sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+cat >> /etc/sysctl.conf << EOF
+net.ipv4.tcp_ecn=1
+net.core.default_qdisc=cake
+net.ipv4.tcp_congestion_control=bbr2
+EOF
+sysctl -p && sysctl --system
+}
+
+arp_buffer(){ #扩大ARP缓冲
+sed -i '/net.ipv4.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh3/d' /etc/sysctl.conf
+cat >> '/etc/sysctl.conf' << EOF
+net.ipv4.neigh.default.gc_thresh1=1024
+net.ipv4.neigh.default.gc_thresh2=4096
+net.ipv4.neigh.default.gc_thresh3=8192
 EOF
 sysctl -p && sysctl --system
 }
@@ -64,28 +213,15 @@ enable_forwarding(){ #开启内核转发
 sed -i '/net.ipv4.conf.all.route_localnet/d' /etc/sysctl.conf
 sed -i '/net.ipv4.ip_forward/d' /etc/sysctl.conf
 sed -i '/net.ipv4.conf.all.forwarding/d' /etc/sysctl.conf
+sed -i '/net.ipv6.conf.all.forwarding/d' /etc/sysctl.conf
 sed -i '/net.ipv4.conf.default.forwarding/d' /etc/sysctl.conf
 cat >> '/etc/sysctl.conf' << EOF
 net.ipv4.conf.all.route_localnet=1
 net.ipv4.ip_forward=1
 net.ipv4.conf.all.forwarding=1
+net.ipv6.conf.all.forwarding=1
 net.ipv4.conf.default.forwarding=1
 EOF
-sysctl -p && sysctl --system
-}
-
-banping(){
-sed -i '/net.ipv4.icmp_echo_ignore_all/d' /etc/sysctl.conf
-sed -i '/net.ipv4.icmp_echo_ignore_broadcasts/d' /etc/sysctl.conf
-cat >> '/etc/sysctl.conf' << EOF
-net.ipv4.icmp_echo_ignore_all=1
-net.ipv4.icmp_echo_ignore_broadcasts=1
-EOF
-sysctl -p && sysctl --system
-}
-unbanping(){
-sed -i "s/net.ipv4.icmp_echo_ignore_all=1/net.ipv4.icmp_echo_ignore_all=0/g" /etc/sysctl.conf
-sed -i "s/net.ipv4.icmp_echo_ignore_broadcasts=1/net.ipv4.icmp_echo_ignore_broadcasts=0/g" /etc/sysctl.conf
 sysctl -p && sysctl --system
 }
 
@@ -134,7 +270,7 @@ sed -i '/DefaultLimitNPROC/d' /etc/systemd/system.conf
 cat >>'/etc/systemd/system.conf' <<EOF
 [Manager]
 #DefaultTimeoutStartSec=90s
-DefaultTimeoutStopSec=30s
+DefaultTimeoutStopSec=10s
 #DefaultRestartSec=100ms
 DefaultLimitCORE=infinity
 DefaultLimitNOFILE=65535
@@ -145,16 +281,6 @@ systemctl daemon-reload
 
 }
 
-bbr(){
-
-if uname -r|grep -q "^5."
-then
-    echo "已经是 5.x 内核，不需要更新"
-else
-    wget -O tcp.sh "https://git.io/coolspeeda" && chmod +x tcp.sh && ./tcp.sh
-fi
-  
-}
 
 Update_Shell(){
   wget -N "http://sh.nekoneko.cloud/tools.sh" -O tools.sh && chmod +x tools.sh && ./tools.sh
@@ -242,11 +368,19 @@ get_system_info() {
 
 menu() {
   echo -e "\
-${Green_font_prefix}1.${Font_color_suffix} 安装BBR原版内核(已经是5.x的不需要)
-${Green_font_prefix}2.${Font_color_suffix} TCP窗口调优
-${Green_font_prefix}3.${Font_color_suffix} 开启内核转发
-${Green_font_prefix}4.${Font_color_suffix} 系统资源限制调优
-${Green_font_prefix}5.${Font_color_suffix} 屏蔽ICMP ${Green_font_prefix}6.${Font_color_suffix} 开放ICMP
+${Green_font_prefix}0.${Font_color_suffix} 优化TCP窗口
+${Green_font_prefix}1.${Font_color_suffix} 启用bbr+fq
+${Green_font_prefix}2.${Font_color_suffix} 启用bbr+fq_pie
+${Green_font_prefix}3.${Font_color_suffix} 启用bbr+cake
+${Green_font_prefix}4.${Font_color_suffix} 启用bbr2+fq
+${Green_font_prefix}5.${Font_color_suffix} 启用bbr2+fq_pie
+${Green_font_prefix}6.${Font_color_suffix} 启用bbr2+cake
+${Green_font_prefix}7.${Font_color_suffix} 启用bbr2+fq_ecn
+${Green_font_prefix}8.${Font_color_suffix} 启用bbr2+fq_pie+ecn
+${Green_font_prefix}9.${Font_color_suffix} 启用bbr2+cake+ecn
+${Green_font_prefix}10.${Font_color_suffix} 扩大ARP缓冲
+${Green_font_prefix}11.${Font_color_suffix} 开启内核转发
+${Green_font_prefix}12.${Font_color_suffix} 系统资源限制调优
 "
 get_system_info
 echo -e "当前系统信息: ${Font_color_suffix}$opsy ${Green_font_prefix}$virtual${Font_color_suffix} $arch ${Green_font_prefix}$kern${Font_color_suffix}
@@ -255,25 +389,43 @@ echo -e "当前系统信息: ${Font_color_suffix}$opsy ${Green_font_prefix}$virt
   read -p "请输入数字 :" num
   case "$num" in
   0)
-    Update_Shell
+    tcp_optimize
     ;;
   1)
-    bbr
+    bbr_fq
     ;;
   2)
-    tcp_tune
+    bbr_fq_pie
     ;;
   3)
-    enable_forwarding
+    bbr_cake
     ;;
   4)
-    ulimit_tune
+    bbr2_fq
     ;;
   5)
-    banping
+    bbr2_fq_pie
     ;;
   6)
-    unbanping
+    bbr2_cake
+    ;;
+  7)
+    bbr2_fq_ecn
+    ;;
+  8)
+    bbr2_fq_pie_ecn
+    ;;
+  9)
+    bbr2_cake_ecn
+    ;;
+  10)
+    arp_buffer
+    ;;
+  11)
+    enable_forwarding
+    ;;
+  12)
+    ulimit_tune
     ;;
   *)
   clear
