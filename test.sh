@@ -24,9 +24,6 @@ sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_mtu_probing/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rfc1337/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_sack/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_adv_win_scale/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_moderate_rcvbuf/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
@@ -35,14 +32,30 @@ sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
 sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
+sed -i '/net.core.rmem_default/d' /etc/sysctl.conf
+sed -i '/net.core.wmem_default/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
+sed -i '/net.core.somaxconn/d' /etc/sysctl.conf
+sed -i 'net.core.optmem_max' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_mem' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_keepalive_time' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_keepalive_intvl' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_keepalive_probes' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_sack/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_timestamps' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_syncookies' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_tw_reuse' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_fin_timeout' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_max_syn_backlog' /etc/sysctl.conf
+sed -i 'net.ipv4.tcp_low_latency' /etc/sysctl.conf
+sed -i 'net.ipv4.ip_local_port_range' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
 net.ipv4.tcp_no_metrics_save=1
 net.ipv4.tcp_frto=0
 net.ipv4.tcp_mtu_probing=0
 net.ipv4.tcp_rfc1337=1
-net.ipv4.tcp_sack=1
-net.ipv4.tcp_fack=1
-net.ipv4.tcp_window_scaling=2
 net.ipv4.tcp_adv_win_scale=2
 net.ipv4.tcp_moderate_rcvbuf=1
 net.ipv4.tcp_rmem=4096 65536 37331520
@@ -51,6 +64,25 @@ net.core.rmem_max=37331520
 net.core.wmem_max=37331520
 net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
+net.core.rmem_default=212992
+net.core.wmem_default=212992
+net.core.netdev_max_backlog=10000
+net.core.somaxconn=2048
+net.core.optmem_max=81920
+net.ipv4.tcp_mem=5814 7754 11628
+net.ipv4.tcp_keepalive_time=1800
+net.ipv4.tcp_keepalive_intvl=30
+net.ipv4.tcp_keepalive_probes=3
+net.ipv4.tcp_sack=1
+net.ipv4.tcp_fack=1
+net.ipv4.tcp_timestamps=1
+net.ipv4.tcp_window_scaling=1
+net.ipv4.tcp_syncookies=1
+net.ipv4.tcp_tw_reuse=1
+net.ipv4.tcp_fin_timeout=30
+net.ipv4.tcp_max_syn_backlog=128
+net.ipv4.tcp_low_latency=0
+net.ipv4.ip_local_port_range=1024 65000
 EOF
 sysctl -p && sysctl --system
 }
@@ -185,44 +217,6 @@ net.ipv4.conf.all.route_localnet=1
 net.ipv4.ip_forward=1
 net.ipv4.conf.all.forwarding=1
 net.ipv4.conf.default.forwarding=1
-EOF
-sysctl -p && sysctl --system
-}
-
-test_only(){ #测试选项
-sed -i '/net.core.rmem_default/d' /etc/sysctl.conf
-sed -i '/net.core.wmem_default/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
-sed -i '/net.core.somaxconn/d' /etc/sysctl.conf
-sed -i 'net.core.optmem_max' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_mem' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_keepalive_time' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_keepalive_intvl' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_keepalive_probes' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_timestamps' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_syncookies' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_tw_reuse' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_fin_timeout' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_max_syn_backlog' /etc/sysctl.conf
-sed -i 'net.ipv4.tcp_low_latency' /etc/sysctl.conf
-sed -i 'net.ipv4.ip_local_port_range' /etc/sysctl.conf
-cat >> /etc/sysctl.conf << EOF
-net.core.rmem_default=212992
-net.core.wmem_default=212992
-net.core.netdev_max_backlog=10000
-net.core.somaxconn=2048
-net.core.optmem_max=81920
-net.ipv4.tcp_mem=5814 7754 11628
-net.ipv4.tcp_keepalive_time=1800
-net.ipv4.tcp_keepalive_intvl=30
-net.ipv4.tcp_keepalive_probes=3
-net.ipv4.tcp_timestamps=1
-net.ipv4.tcp_syncookies=1
-net.ipv4.tcp_tw_reuse=1
-net.ipv4.tcp_fin_timeout=30
-net.ipv4.tcp_max_syn_backlog=128
-net.ipv4.tcp_low_latency=0
-net.ipv4.ip_local_port_range=1024 65000
 EOF
 sysctl -p && sysctl --system
 }
@@ -379,8 +373,6 @@ ${Green_font_prefix}10.${Font_color_suffix} 启用bbr2+cake+ecn
 ${Green_font_prefix}11.${Font_color_suffix} 扩大ARP缓冲
 ${Green_font_prefix}12.${Font_color_suffix} 开启内核转发
 ${Green_font_prefix}13.${Font_color_suffix} 系统资源限制调优
-${Green_font_prefix}14.${Font_color_suffix} 测试选项
-
 "
 get_system_info
 echo -e "当前系统信息: ${Font_color_suffix}$opsy ${Green_font_prefix}$virtual${Font_color_suffix} $arch ${Green_font_prefix}$kern${Font_color_suffix}
@@ -426,9 +418,6 @@ echo -e "当前系统信息: ${Font_color_suffix}$opsy ${Green_font_prefix}$virt
     ;;
   13)
     ulimit_tune
-    ;;
-  14)
-    test_only
     ;;
   *)
   clear
