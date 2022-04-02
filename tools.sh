@@ -211,13 +211,11 @@ enable_forwarding(){ #开启内核转发
 sed -i '/net.ipv4.conf.all.route_localnet/d' /etc/sysctl.conf
 sed -i '/net.ipv4.ip_forward/d' /etc/sysctl.conf
 sed -i '/net.ipv4.conf.all.forwarding/d' /etc/sysctl.conf
-sed -i '/net.ipv6.conf.all.forwarding/d' /etc/sysctl.conf
 sed -i '/net.ipv4.conf.default.forwarding/d' /etc/sysctl.conf
 cat >> '/etc/sysctl.conf' << EOF
 net.ipv4.conf.all.route_localnet=1
 net.ipv4.ip_forward=1
 net.ipv4.conf.all.forwarding=1
-net.ipv6.conf.all.forwarding=1
 net.ipv4.conf.default.forwarding=1
 EOF
 sysctl -p && sysctl --system
