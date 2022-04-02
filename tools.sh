@@ -280,10 +280,6 @@ systemctl daemon-reload
 }
 
 
-Update_Shell(){
-  wget -N "http://sh.nekoneko.cloud/tools.sh" -O tools.sh && chmod +x tools.sh && ./tools.sh
-}
-
 get_opsy() {
   [ -f /etc/redhat-release ] && awk '{print ($1,$3~/^[0-9]/?$3:$4)}' /etc/redhat-release && return
   [ -f /etc/os-release ] && awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release && return
@@ -366,19 +362,19 @@ get_system_info() {
 
 menu() {
   echo -e "\
-${Green_font_prefix}0.${Font_color_suffix} 优化TCP窗口
-${Green_font_prefix}1.${Font_color_suffix} 启用bbr+fq
-${Green_font_prefix}2.${Font_color_suffix} 启用bbr+fq_pie
-${Green_font_prefix}3.${Font_color_suffix} 启用bbr+cake
-${Green_font_prefix}4.${Font_color_suffix} 启用bbr2+fq
-${Green_font_prefix}5.${Font_color_suffix} 启用bbr2+fq_pie
-${Green_font_prefix}6.${Font_color_suffix} 启用bbr2+cake
-${Green_font_prefix}7.${Font_color_suffix} 启用bbr2+fq_ecn
-${Green_font_prefix}8.${Font_color_suffix} 启用bbr2+fq_pie+ecn
-${Green_font_prefix}9.${Font_color_suffix} 启用bbr2+cake+ecn
-${Green_font_prefix}10.${Font_color_suffix} 扩大ARP缓冲
-${Green_font_prefix}11.${Font_color_suffix} 开启内核转发
-${Green_font_prefix}12.${Font_color_suffix} 系统资源限制调优
+${Green_font_prefix}1.${Font_color_suffix} 优化TCP窗口
+${Green_font_prefix}2.${Font_color_suffix} 启用bbr+fq
+${Green_font_prefix}3.${Font_color_suffix} 启用bbr+fq_pie
+${Green_font_prefix}4.${Font_color_suffix} 启用bbr+cake
+${Green_font_prefix}5.${Font_color_suffix} 启用bbr2+fq
+${Green_font_prefix}6.${Font_color_suffix} 启用bbr2+fq_pie
+${Green_font_prefix}7.${Font_color_suffix} 启用bbr2+cake
+${Green_font_prefix}8.${Font_color_suffix} 启用bbr2+fq_ecn
+${Green_font_prefix}9.${Font_color_suffix} 启用bbr2+fq_pie+ecn
+${Green_font_prefix}10.${Font_color_suffix} 启用bbr2+cake+ecn
+${Green_font_prefix}11.${Font_color_suffix} 扩大ARP缓冲
+${Green_font_prefix}12.${Font_color_suffix} 开启内核转发
+${Green_font_prefix}13.${Font_color_suffix} 系统资源限制调优
 "
 get_system_info
 echo -e "当前系统信息: ${Font_color_suffix}$opsy ${Green_font_prefix}$virtual${Font_color_suffix} $arch ${Green_font_prefix}$kern${Font_color_suffix}
@@ -386,43 +382,43 @@ echo -e "当前系统信息: ${Font_color_suffix}$opsy ${Green_font_prefix}$virt
 
   read -p "请输入数字 :" num
   case "$num" in
-  0)
+  1)
     tcp_optimize
     ;;
-  1)
+  2)
     bbr_fq
     ;;
-  2)
+  3)
     bbr_fq_pie
     ;;
-  3)
+  4)
     bbr_cake
     ;;
-  4)
+  5)
     bbr2_fq
     ;;
-  5)
+  6)
     bbr2_fq_pie
     ;;
-  6)
+  7)
     bbr2_cake
     ;;
-  7)
+  8)
     bbr2_fq_ecn
     ;;
-  8)
+  9)
     bbr2_fq_pie_ecn
     ;;
-  9)
+  10)
     bbr2_cake_ecn
     ;;
-  10)
+  11)
     arp_buffer
     ;;
-  11)
+  12)
     enable_forwarding
     ;;
-  12)
+  13)
     ulimit_tune
     ;;
   *)
