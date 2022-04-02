@@ -237,7 +237,7 @@ tar -zxf CloudflareST_linux_amd64.tar.gz
 # 赋予执行权限
 chmod +x CloudflareST
 
-# 运行IPv6测试
+# 运行IPv6测试，本地上传HKG直连/48段
 ./CloudflareST -f ipv6.txt -ipv6
 ```
 
