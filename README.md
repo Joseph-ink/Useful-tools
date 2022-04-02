@@ -35,7 +35,7 @@ bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
 MOD 集成各种队列算法
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_mod.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools.sh)
 ```
 
 ## CoalRelay隧道
