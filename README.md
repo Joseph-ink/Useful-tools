@@ -37,6 +37,9 @@ MOD 集成各种队列算法
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools.sh)
 ```
+```
+bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_pie.sh)
+```
 
 ## CoalRelay隧道
 
