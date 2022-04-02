@@ -24,9 +24,6 @@ sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_mtu_probing/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rfc1337/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_sack/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_adv_win_scale/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_moderate_rcvbuf/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
@@ -44,7 +41,10 @@ sed -i 'net.ipv4.tcp_mem' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_keepalive_time' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_keepalive_intvl' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_keepalive_probes' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_sack/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_timestamps' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_syncookies' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_tw_reuse' /etc/sysctl.conf
 sed -i 'net.ipv4.tcp_fin_timeout' /etc/sysctl.conf
