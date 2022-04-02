@@ -141,7 +141,7 @@ wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/Josep
 bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh') -d 11 -v 64 -p "自定义root密码" -port "自定义ssh端口"
 ```
 
-## 切换AWS VPS登录账号至root
+## 切换VPS登录账号至root
 
 请注意修改以下“password”为你需要设置的密码，请勿直接使用，防止简单密码爆破；
 请切换至root账号或者使用sudo运行代码。
