@@ -234,16 +234,19 @@ wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.0.3/Clo
 # 解压
 tar -zxf CloudflareST_linux_amd64.tar.gz
 
-# 更换自选香港直连ipv6,或者本地上传txt
+# 第一步(可选)：更换默认ipv6地址集，扫描Cloudflare全部ipv6地址,香港直连ipv6,或者本地上传txt
 # rm -rf ipv6.txt
-# wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ipv6.txt && chmod +x ipv6.txt
+# wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/ipv6_all.txt && chmod +x ipv6_all.txt
 
 # 赋予执行权限
 chmod +x CloudflareST
 
-# 运行IPv6测试
-./CloudflareST -f ipv6.txt -ipv6
-```
+# 首次（可选）运行IPv6延迟测试，不含下载测速
+./CloudflareST -f ipv6_all.txt -ipv6 -p 200 -tll 40 -tl 150 -dd
+# 结果保存在result.csv，SSH也会显示
+
+# （必选）将筛选后的IPv6进行速度测试
+./CloudflareST -f ipv6_hk.txt -ipv6 -p 200 -tll 40 -tl 150
 
 ## Oracle Cloud VPS在选择ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口的限制命令
 ```
