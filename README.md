@@ -254,10 +254,11 @@ rm -rf ip.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv4_all.txt && chmod +x cf_ipv4_all.txt
 ./CloudflareST -f cf_ipv6_all.txt -p 200 -tll 15 -tl 150
 
-```
+
 确认中港直连cloudflare地址段 详见cf_ipv6_hk.txt
 确认港日直连cloudflare地址段  2606:4700:f1::/48
 确认中日直连cloudflare地址段  2606:4700:f4::/48
+```
 
 ## Oracle Cloud VPS在选择ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口的限制命令
 ```
