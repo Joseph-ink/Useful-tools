@@ -240,19 +240,19 @@ chmod +x CloudflareST
 # IPv6优选：
 # (可选)第一步：更换默认ipv6地址集，扫描Cloudflare全部ipv6 /48地址块（或者本地上传txt）
 rm -rf ipv6.txt
-wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv6_48.txt && chmod +x cf_ipv6_48.txt
+wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv6_all.txt && chmod +x cf_ipv6_all.txt
 
 #（可选）首次运行IPv6延迟测试，不含下载测速
-# ./CloudflareST -f cf_ipv6_48.txt -ipv6 -p 200 -tll 15 -tl 150 -dd
+# ./CloudflareST -f cf_ipv6_all.txt -ipv6 -p 200 -tll 15 -tl 150 -dd
 # 结果保存在result.csv，SSH也会显示
 
 #（必选）将筛选后的低延迟HK IPv6进行速度测试
-./CloudflareST -f cf_ipv6_48_hk.txt -ipv6 -p 200 -tll 15 -tl 150
+./CloudflareST -f cf_ipv6_hk.txt -ipv6 -p 200 -tll 15 -tl 150
 
 # IPv4优选：
 rm -rf ip.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv4_all.txt && chmod +x cf_ipv4_all.txt
-./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150
+./CloudflareST -f cf_ipv6_all.txt -p 200 -tll 15 -tl 150
 
 ```
 
