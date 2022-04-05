@@ -252,7 +252,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Usef
 # IPv4优选：
 rm -rf ip.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv4_all.txt && chmod +x cf_ipv4_all.txt
-./CloudflareST -f cf_ipv6_all.txt -p 200 -tll 15 -tl 150
+./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150
 
 
 确认中港直连cloudflare地址段 详见cf_ipv6_hk.txt
