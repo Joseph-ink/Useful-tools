@@ -272,3 +272,8 @@ apt-get purge netfilter-persistent
 #强制删除
 rm -rf /etc/iptables && reboot
 ```
+
+## Adguard Home管理命令
+```
+sudo /Applications/AdGuardHome/AdGuardHome -s start|stop|restart|status|install|uninstall
+```
