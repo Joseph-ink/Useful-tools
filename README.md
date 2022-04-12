@@ -243,7 +243,7 @@ rm -rf ipv6.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv6_all.txt && chmod +x cf_ipv6_all.txt
 
 #（可选）首次运行IPv6延迟测试，不含下载测速
-# ./CloudflareST -f cf_ipv6_all.txt -ipv6 -p 200 -tll 15 -tl 150 -dd
+# ./CloudflareST -f cf_ipv6.txt -ipv6 -p 200 -tll 15 -tl 150 -dd
 # 结果保存在result.csv，SSH也会显示
 
 #（必选）将筛选后的低延迟HK IPv6进行速度测试
