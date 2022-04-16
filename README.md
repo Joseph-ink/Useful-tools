@@ -10,7 +10,7 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 
 更换Xanmod real-time高响应内核（最新开发版）
 ```
-wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_edge.sh" && chmod +x tcp_edge.sh && ./tcp_edge.sh
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_mod.sh" && chmod +x tcp_mod.sh && ./tcp_mod.sh
 ```
 
 查看匹配内核
