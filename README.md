@@ -28,6 +28,12 @@ apt install intel-microcode iucode-tool
 apt install amd64-microcode
 ```
 
+```
+apt install tuned tuned-gtk tuned-utils tuned-utils-systemtap
+tuned-adm profile latency-performance
+tuned-adm active
+```
+
 ## BBR优化脚本
 原版，采用bbr+fq优化加速
 ```
