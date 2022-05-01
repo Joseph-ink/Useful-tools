@@ -283,3 +283,18 @@ rm -rf /etc/iptables && reboot
 ```
 sudo /Applications/AdGuardHome/AdGuardHome -s start|stop|restart|status|install|uninstall
 ```
+
+## 修改IPv6网关
+
+使用 route 命令临时增加（重启后失效）
+```
+route add -A inet6 default gw <ipv6address>
+```
+
+编辑 /etc/network/interfaces.d/*
+```
+iface eth0 inet6 static
+    address <ipv6address> # 主机IPv6地址
+    netmask 64
+    gateway <ipv6address> # IPv6网关地址
+```
