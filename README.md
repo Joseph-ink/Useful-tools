@@ -291,7 +291,7 @@ sudo /Applications/AdGuardHome/AdGuardHome -s start|stop|restart|status|install|
 route add -A inet6 default gw <ipv6address>
 ```
 
-编辑 /etc/network/interfaces.d/*
+编辑固化 /etc/network/interfaces.d/*
 ```
 iface eth0 inet6 static
     address <ipv6address> # 主机IPv6地址
