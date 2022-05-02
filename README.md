@@ -260,6 +260,8 @@ rm -rf ip.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv4_all.txt && chmod +x cf_ipv4_all.txt
 ./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150
 
+# 其他CDN IPv4优选（使用自定义测速链接和80端口HTTP下载）：
+./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150 -tp 80 -url http://xxx/xxx
 
 确认中港直连cloudflare地址段 详见cf_ipv6_hk.txt
 确认港日直连cloudflare地址段  2606:4700:f1::/48
