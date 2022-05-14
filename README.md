@@ -105,7 +105,7 @@ chmod -R 755 /root/cert
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/multi.sh && chmod +x multi.sh && ./multi.sh
 ```
 
-## 使用worsttrace 追踪路由
+## 推荐使用worsttrace 追踪路由
 linux x86
 ```
 wget https://wtrace.app/packages/linux/worsttrace -O /usr/local/bin/worsttrace
@@ -299,4 +299,12 @@ iface eth0 inet6 static
     address <ipv6address> # 主机IPv6地址
     netmask 64
     gateway <ipv6address> # IPv6网关地址
+```
+
+### 使用worsttrace 追踪路由(存疑)
+linux arm
+```
+wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
+chmod +x besttracearm
+./besttracearm ip
 ```
