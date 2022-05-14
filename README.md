@@ -48,6 +48,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/t
 ```
 
 ## 最新编译gost以及转发配置脚本
+Linux AMD64
 ```
 wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/gost/gost.sh && chmod +x gost.sh && ./gost.sh
 ```
