@@ -39,13 +39,17 @@ tuned-adm active
 ```
 bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
-MOD 集成各种队列算法
+
+MOD 采用bbr+fq_pie优化加速（需更换xanmod内核）
+```
+bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_vv.sh)
+```
+
+MOD 集成各种队列算法（暂时停用）
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools.sh)
 ```
-```
-bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_test.sh)
-```
+
 
 ## 最新编译gost以及转发配置脚本
 Linux AMD64
