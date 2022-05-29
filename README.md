@@ -47,6 +47,12 @@ bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/t
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_test.sh)
 ```
 
+## 最新编译gost以及转发配置脚本
+Linux AMD64
+```
+wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/gost/gost.sh && chmod +x gost.sh && ./gost.sh
+```
+
 ## CoalRelay隧道
 
 AMD64
@@ -301,7 +307,7 @@ iface eth0 inet6 static
     gateway <ipv6address> # IPv6网关地址
 ```
 
-### 使用worsttrace 追踪路由(存疑)
+### 使用Besttrace 追踪路由(存疑)
 linux arm
 ```
 wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
