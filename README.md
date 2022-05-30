@@ -50,6 +50,12 @@ MOD 集成各种队列算法（暂时停用）
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools.sh)
 ```
 
+更新Ubuntu 22.04 LTS
+替换 focal 为 jammy
+```
+sed -i 's/focal/jammy/g' /etc/apt/sources.list
+sed -i 's/focal/jammy/g' /etc/apt/sources.list.d/*.list
+```
 
 ## 最新编译gost以及转发配置脚本
 Linux AMD64
