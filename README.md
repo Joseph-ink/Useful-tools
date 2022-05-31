@@ -57,6 +57,18 @@ sed -i 's/focal/jammy/g' /etc/apt/sources.list
 sed -i 's/focal/jammy/g' /etc/apt/sources.list.d/*.list
 ```
 
+Debian 10 升级 11
+```
+vi /etc/apt/sources.list
+```
+
+```
+deb http://deb.debian.org/debian bullseye main contrib non-free
+deb http://deb.debian.org/debian bullseye-updates main contrib non-free
+deb http://security.debian.org/debian-security bullseye-security main
+deb http://ftp.debian.org/debian bullseye-backports main contrib non-free
+```
+
 ## 最新编译gost以及转发配置脚本
 Linux AMD64
 ```
@@ -325,19 +337,3 @@ chmod +x besttracearm
 ./besttracearm ip
 ```
 
-Ubuntu 20.04 升级 22.04
-```
-sed -i 's/focal/jammy/g' /etc/apt/sources.list
-```
-
-Debian 10 升级 11
-```
-vi /etc/apt/sources.list
-```
-
-```
-deb http://deb.debian.org/debian bullseye main contrib non-free
-deb http://deb.debian.org/debian bullseye-updates main contrib non-free
-deb http://security.debian.org/debian-security bullseye-security main
-deb http://ftp.debian.org/debian bullseye-backports main contrib non-free
-```
