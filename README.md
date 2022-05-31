@@ -3,19 +3,9 @@
 
 ## BBR开启和选择模式脚本 
 
-更换Xanmod real-time高响应内核
-```
-wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp.sh" && chmod +x tcp.sh && ./tcp.sh 
-```
-
-更换Xanmod real-time高响应内核（最新开发版）
+更换内核
 ```
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_mod.sh" && chmod +x tcp_mod.sh && ./tcp_mod.sh
-```
-
-查看匹配内核
-```
-ls /boot/vmlinuz-*
 ```
 
 更新CPU微码
@@ -35,19 +25,14 @@ tuned-adm active
 ```
 
 ## BBR优化脚本
-原版，采用bbr+fq优化加速
-```
-bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
-```
-
 MOD 采用bbr+fq_pie优化加速（需更换xanmod内核）
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_vv.sh)
 ```
 
-MOD 集成各种队列算法（暂时停用）
+原版，采用bbr+fq优化加速
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools.sh)
+bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
 ```
 
 更新Ubuntu 22.04 LTS
@@ -126,11 +111,6 @@ mkdir /root/cert
 ~/.acme.sh/acme.sh --installcert -d bozai3.xyz --key-file /root/cert/private.key --fullchain-file /root/cert/cert.crt
 ~/.acme.sh/acme.sh --upgrade --auto-upgrade
 chmod -R 755 /root/cert
-```
-
-## 关闭oracle防火墙
-```
-wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/multi.sh && chmod +x multi.sh && ./multi.sh
 ```
 
 ## 推荐使用worsttrace 追踪路由
@@ -224,9 +204,6 @@ pip install --upgrade pip
 ```
 /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pip install --upgrade pip
 ```
-
-## How do I fix the syntax error in pip?
-The pip install invalid syntax error is raised when you try to install a Python package from the interpreter. To fix this error, exit your interpreter and run the pip install command from a command line shell.
 
 ## PIP更新管理
 ```
@@ -336,4 +313,3 @@ wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
 chmod +x besttracearm
 ./besttracearm ip
 ```
-
