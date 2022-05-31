@@ -324,3 +324,13 @@ wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
 chmod +x besttracearm
 ./besttracearm ip
 ```
+
+Ubuntu 20.04 升级 22.04
+```
+sed -i 's/focal/jammy/g' /etc/apt/sources.list
+```
+
+Debian 10 升级 11
+```
+sed -i 's/buster/bullseye/g' /etc/apt/sources.list
+```
