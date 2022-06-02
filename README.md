@@ -281,7 +281,7 @@ iptables -P FORWARD ACCEPT
 iptables -P OUTPUT ACCEPT
 iptables -F
 #Oracle自带的Ubuntu镜像默认设置了Iptable规则，关闭它
-apt-get purge netfilter-persistent
+apt purge netfilter-persistent -y
 #强制删除
 rm -rf /etc/iptables && reboot
 ```
