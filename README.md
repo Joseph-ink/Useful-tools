@@ -313,3 +313,9 @@ wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
 chmod +x besttracearm
 ./besttracearm ip
 ```
+Clash for Windows arm64版本，在m1 mac上安装时报错安装包损坏的解决方法：
+使用Terminal执行以下命令
+```
+sudo xattr -r -d com.apple.quarantine /Applications/Clash\ for\ Windows.app
+```
+推荐使用ClashX Pro,简单轻量
