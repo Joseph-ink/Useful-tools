@@ -188,14 +188,19 @@ installbbrarm() {
     elif [[ ${bit} == "aarch64" ]]; then
       headurl=https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.18.2/arm64/linux-headers-5.18.2-051802-generic-64k_5.18.2-051802.202206060740_arm64.deb
       imgurl=https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.18.2/arm64/linux-image-unsigned-5.18.2-051802-generic-64k_5.18.2-051802.202206060740_arm64.deb
+      moduleurl=https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.18.2/arm64/linux-modules-5.18.2-051802-generic-64k_5.18.2-051802.202206060740_arm64.deb
       echo -e "正在检查headers下载连接...."
       checkurl $headurl
-      echo -e "正在检查内核下载连接...."
+      echo -e "正在检查内核img下载连接...."
       checkurl $imgurl
+      echo -e "正在检查内核module下载连接...."
+      checkurl $moduleurl
       wget -N -O linux-headers-d10.deb $headurl
       wget -N -O linux-image-d10.deb $imgurl
+      wget -N -O linux-module-d10.deb $moduleurl
       dpkg -i linux-image-d10.deb
       dpkg -i linux-headers-d10.deb
+      dpkg -i linux-module-d10.deb
     else
       echo -e "${Error} 不支持x86_64及arm64/aarch64以外的系统 !" && exit 1
     fi
