@@ -319,3 +319,21 @@ Clash for Windows arm64版本，在m1 mac上安装时报错安装包损坏的解
 sudo xattr -r -d com.apple.quarantine /Applications/Clash\ for\ Windows.app
 ```
 推荐使用ClashX Pro,简单轻量
+
+### Linux 安装GOLANG教程
+```
+https://go.dev/doc/install
+```
+
+### 编译安装nali
+```
+go install github.com/zu1k/nali@latest
+生成二进制文件位置
+/root/go/bin/nali
+移动至/usr/local/bin并赋权
+```
+
+### 使用Find命令查找文件，例如 httpd.conf
+```
+find / -name httpd.conf
+```
