@@ -1,14 +1,12 @@
 一些工具的整理，方便个人对于vps的管理
 
 
-## BBR开启和选择模式脚本 
-
-更换内核
+### 更换内核和开启BBR脚本 
 ```
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_mod.sh" && chmod +x tcp_mod.sh && ./tcp_mod.sh
 ```
 
-更新CPU微码
+### 更新CPU微码
 ```
 #查看CPU信息
 cat  /proc/cpuinfo
@@ -18,31 +16,27 @@ apt install intel-microcode iucode-tool
 apt install amd64-microcode
 ```
 
+### 启用tuned系统调优工具
 ```
 apt install tuned tuned-gtk tuned-utils tuned-utils-systemtap
 tuned-adm profile latency-performance
 tuned-adm active
 ```
 
-## BBR优化脚本
+### 网络和系统优化脚本
 MOD 采用bbr+fq_pie优化加速（需更换xanmod内核）
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_vv.sh)
 ```
 
-原版，采用bbr+fq优化加速
-```
-bash <(curl -Ls https://github.com/lanziii/bbr-/releases/download/123/tools.sh)
-```
-
-更新Ubuntu 22.04 LTS
+### 更新Ubuntu 22.04 LTS
 替换 focal 为 jammy
 ```
 sed -i 's/focal/jammy/g' /etc/apt/sources.list
 sed -i 's/focal/jammy/g' /etc/apt/sources.list.d/*.list
 ```
 
-Debian 10 升级 11
+### Debian 10 升级 11
 ```
 vi /etc/apt/sources.list
 ```
@@ -54,58 +48,44 @@ deb http://security.debian.org/debian-security bullseye-security main
 deb http://ftp.debian.org/debian bullseye-backports main contrib non-free
 ```
 
-## 最新编译gost以及转发配置脚本
+### 最新编译gost以及转发配置脚本
 Linux AMD64
 ```
 wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/gost/gost.sh && chmod +x gost.sh && ./gost.sh
 ```
 
-## CoalRelay隧道
-
-AMD64
+### CoalRelay隧道
 ```
+# AMD64
 wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-amd64.sh && bash coal-amd64.sh
-```
-ARM64
-```
+# ARM64
 wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-arm64.sh && bash coal-arm64.sh
-```
-### 使用方法
-```
+# 使用方法
 源节点+端口----目标节点+端口----监听节点+端口
 若目标节点即为最终落地节点，则配置监听节点ip:127.0.0.1，监听端口为架设服务的端口
-```
-```
 配置文件:/etc/CoalRelay/config.json
 重启命令:systemctl restart coal
 查看状态:systemctl status coal
 ```
 
 ## 使用ACME.sh脚本进行TLS证书申请
-
-安装 ACME.sh脚本
 ```
+# 安装 ACME.sh脚本
 curl https://get.acme.sh | sh
-```
-
-或者试试这个，特别是国内环境
-```
+# 国内环境可尝试
 wget -O -  https://get.acme.sh | sh -s email=my@example.com
 ```
 
-设置 Cloudflare API 令牌（依照自己账号的信息）
+
 ```
+# 设置 Cloudflare API 令牌（依照自己账号的信息）
 export CF_Key="4f9794c701b6e27884f0da0bab6454de07552"
 export CF_Email="bozai@v2rayssr.com"
-```
 
-按ZeroSSL要求注册至自己的邮箱
-```
+# 按ZeroSSL要求注册至自己的邮箱
 ~/.acme.sh/acme.sh --register-account -m my@example.com
-```
 
-验证DNS并申请证书
-```
+# 验证DNS并申请证书
 ~/.acme.sh/acme.sh --issue --dns dns_cf -d bozai3.xyz
 mkdir /root/cert
 ~/.acme.sh/acme.sh --installcert -d bozai3.xyz --key-file /root/cert/private.key --fullchain-file /root/cert/cert.crt
@@ -113,7 +93,7 @@ mkdir /root/cert
 chmod -R 755 /root/cert
 ```
 
-## 推荐使用worsttrace 追踪路由
+### 推荐使用worsttrace 追踪路由
 linux x86
 ```
 wget https://wtrace.app/packages/linux/worsttrace -O /usr/local/bin/worsttrace
@@ -121,12 +101,7 @@ chmod a+x /usr/local/bin/worsttrace
 worsttrace ip
 ```
 
-## Speedtest-Cli
-
-特点
-测试网络上传/下载速率的一款工具
-
-Speedtest-Cli
+### Speedtest-Cli 测速
 ```
 #下载
 wget https://raw.github.com/sivel/speedtest-cli/master/speedtest.py
@@ -137,8 +112,6 @@ python3 speedtest.py
 ```
 
 ## 卸载腾讯云服务器自带监控
-
-执行以下命令
 ```
 #卸载脚本
 /usr/local/qcloud/stargate/admin/uninstall.sh
@@ -153,12 +126,13 @@ crontab -e
 ```
 wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/uninstall.sh" && chmod 700 /root/uninstall.sh && /root/uninstall.sh
 ```
-## 一键DD脚本（默认Debian 11）
+
+### 一键DD脚本（默认Debian 11）
 ```
 bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh') -d 11 -v 64 -p "自定义root密码" -port "自定义ssh端口"
 ```
 
-## 切换VPS登录账号至root
+### 切换VPS登录账号至root
 
 请注意修改以下“password”为你需要设置的密码，请勿直接使用，防止简单密码爆破；
 请切换至root账号或者使用sudo运行代码。
@@ -169,69 +143,40 @@ sed -i 's/^.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config;
 sed -i 's/^.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 reboot
 ```
-## macOS下解决"pip command not found"的办法
-
-首先查看py3.10的包文件夹路径
-打开终端
+### macOS下解决"pip command not found"的办法
 ```
+# 首先查看py3.10的包文件夹路径
+# 打开终端
 $ python3
 >>> import sys
 >>> print(sys.path)
-```
-复制最后一个路径，我的是
-```
+# 复制最后一个路径，我的是
 /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages
-```
-直接终端执行
-```
+# 直接终端执行
 python3 -m pip install 包名
-```
-即可安装完成
+# 即可安装完成
 
-更新pip
-```
+# 更新pip
 python3 -m pip install --upgrade pip
-```
-查看需要更新的包
-```
+# 查看需要更新的包
 pip list --outdated
-```
-更新单个包（此处以更新pip为例）
-```
+# 更新单个包（此处以更新pip为例）
 pip install --upgrade pip
-```
-这个命令或许也有用
-```
+# 这个命令或许也有用
 /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pip install --upgrade pip
-```
 
-## PIP更新管理
-```
-列出可升级的包：
-pip list --outdated
-
-更新某一个模块,如'itchat'：　　　　　
-pip install --upgrade itchat
-
-升级pip自身
-pip install --upgrade pip 
-```
-
-## 批量更新
-```
-批量下载并更新：
+# 批量更新并更新
 pip install pip-review
 pip-review --local --interactive
 pip-review --auto
-
-命令先全部下载所有待更新包后再安装，所以如果中间出错将全部安装失败
-查看出错的包名，先单独安装
+# 命令先全部下载所有待更新包后再安装，所以如果中间出错将全部安装失败
+# 查看出错的包名，先单独安装
 pip install --upgrade itchat
-然后重新运行
+# 然后重新运行
 pip-review --auto
 ```
 
-## Cloudflare IPv6优选脚本
+### Cloudflare IPv6优选脚本
 ```
 # 如果是第一次使用，则建议创建新文件夹（后续更新请跳过该步骤）
 mkdir CloudflareST
@@ -273,7 +218,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Usef
 确认中日直连cloudflare地址段  2606:4700:f4::/48
 ```
 
-## Oracle Cloud VPS在选择ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口的限制命令
+### Oracle Cloud VPS在ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口限制命令
 ```
 #开放所有端口
 iptables -P INPUT ACCEPT
@@ -286,20 +231,16 @@ apt purge netfilter-persistent -y
 rm -rf /etc/iptables && reboot
 ```
 
-## Adguard Home管理命令
+### Adguard Home管理命令
 ```
 sudo /Applications/AdGuardHome/AdGuardHome -s start|stop|restart|status|install|uninstall
 ```
 
-## 修改IPv6网关
-
-使用 route 命令临时增加（重启后失效）
+### 修改IPv6网关
 ```
+# 使用 route 命令临时增加（重启后失效）
 route add -A inet6 default gw <ipv6address>
-```
-
-编辑固化 /etc/network/interfaces.d/*
-```
+# 编辑固化 /etc/network/interfaces.d/*
 iface eth0 inet6 static
     address <ipv6address> # 主机IPv6地址
     netmask 64
@@ -313,7 +254,8 @@ wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
 chmod +x besttracearm
 ./besttracearm ip
 ```
-Clash for Windows arm64版本，在m1 mac上安装时报错安装包损坏的解决方法：
+
+### Clash for Windows arm64版本，在m1 mac上安装时报错安装包损坏的解决方法：
 使用Terminal执行以下命令
 ```
 sudo xattr -r -d com.apple.quarantine /Applications/Clash\ for\ Windows.app
