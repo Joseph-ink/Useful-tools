@@ -24,7 +24,7 @@ tuned-adm active
 ```
 
 ### 网络和系统优化脚本
-MOD 采用bbr+fq_pie优化加速（需更换xanmod内核）
+MOD 支持各种队列算法，需使用对应内核
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_vv.sh)
 ```
