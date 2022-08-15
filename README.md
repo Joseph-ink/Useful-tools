@@ -247,14 +247,6 @@ iface eth0 inet6 static
     gateway <ipv6address> # IPv6网关地址
 ```
 
-### 使用Besttrace 追踪路由(存疑)
-linux arm
-```
-wget https://github.com/Joseph-ink/Useful-tools/raw/main/besttracearm
-chmod +x besttracearm
-./besttracearm ip
-```
-
 ### Clash for Windows arm64版本，在m1 mac上安装时报错安装包损坏的解决方法：
 使用Terminal执行以下命令
 ```
