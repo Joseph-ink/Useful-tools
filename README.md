@@ -93,12 +93,14 @@ mkdir /root/cert
 chmod -R 755 /root/cert
 ```
 
-### 推荐使用worsttrace 追踪路由
-linux x86
 ```
-wget https://wtrace.app/packages/linux/worsttrace -O /usr/local/bin/worsttrace
-chmod a+x /usr/local/bin/worsttrace
-worsttrace ip
+### 推荐使用nexttrace 追踪路由
+# Linux 一键安装脚本
+bash <(curl -Ls https://raw.githubusercontent.com/xgadget-lab/nexttrace/main/nt_install.sh)
+# macOS brew 安装命令
+brew tap xgadget-lab/nexttrace && brew install nexttrace
+#执行
+nexttrace ip
 ```
 
 ### Speedtest-Cli 测速
