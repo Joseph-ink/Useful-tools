@@ -93,8 +93,8 @@ mkdir /root/cert
 chmod -R 755 /root/cert
 ```
 
-```
 ### 推荐使用nexttrace 追踪路由
+```
 # Linux 一键安装脚本
 bash <(curl -Ls https://raw.githubusercontent.com/xgadget-lab/nexttrace/main/nt_install.sh)
 # macOS brew 安装命令
