@@ -178,7 +178,8 @@ pip install --upgrade itchat
 pip-review --auto
 ```
 
-### Cloudflare IPv6优选脚本
+### CDN优选
+####包含Cloudflare、Cloudfront ip段，数据来自BGP工具，经过移动宽带测试初筛
 ```
 # 如果是第一次使用，则建议创建新文件夹（后续更新请跳过该步骤）
 mkdir CloudflareST
@@ -216,8 +217,6 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Usef
 ./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150 -tp 80 -url http://xxx/xxx
 
 确认中港直连cloudflare地址段 详见cf_ipv6_hk.txt
-确认港日直连cloudflare地址段  2606:4700:f1::/48
-确认中日直连cloudflare地址段  2606:4700:f4::/48
 ```
 
 ### Oracle Cloud VPS在ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口限制命令
