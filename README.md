@@ -255,6 +255,13 @@ sudo xattr -r -d com.apple.quarantine /Applications/Clash\ for\ Windows.app
 ```
 推荐使用ClashX Pro,简单轻量
 
+### Mac应用程序被锁定无法进行卸载，文件、文件夹被锁定无法移入废纸篓处理方法
+```
+sudo rm -rf 被锁定的文件、文件夹路径
+```
+不知道路径的可以直接把文件或文件夹拖进终端
+
+
 ### Linux 安装GOLANG教程
 ```
 https://go.dev/doc/install
