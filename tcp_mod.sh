@@ -637,7 +637,7 @@ installxanmodtt() {
 installbbrplusnew() {
   github_ver_plus=$(curl -s https://api.github.com/repos/UJX6N/bbrplus-5.18/releases | grep /bbrplus-5.18/releases/tag/ | head -1 | awk -F "[/]" '{print $8}' | awk -F "[\"]" '{print $1}')
   github_ver_plus_num=$(curl -s https://api.github.com/repos/UJX6N/bbrplus-5.18/releases | grep /bbrplus-5.18/releases/tag/ | head -1 | awk -F "[/]" '{print $8}' | awk -F "[\"]" '{print $1}' | awk -F "[-]" '{print $1}')
-  echo -e "获取的UJX6N的bbrplus-5.10版本号为:${github_ver_plus}"
+  echo -e "获取的UJX6N的bbrplus-5.18版本号为:${github_ver_plus}"
   echo -e "如果下载地址出错，可能当前正在更新，超过半天还是出错请反馈，大陆自行解决污染问题"
   echo -e "安装失败这边反馈，内核问题给UJX6N反馈"
   # kernel_version=$github_ver_plus
