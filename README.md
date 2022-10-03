@@ -7,6 +7,12 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 ```
 
 ### 更新CPU微码
+Debian 11增加源 *vi /etc/apt/sources.list*
+```
+deb http://deb.debian.org/debian bullseye main contrib non-free
+deb http://security.debian.org/debian-security bullseye-security main contrib non-free
+deb http://deb.debian.org/debian bullseye-updates main contrib non-free
+```
 ```
 #查看CPU信息
 cat  /proc/cpuinfo
