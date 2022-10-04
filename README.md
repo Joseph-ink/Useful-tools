@@ -29,6 +29,11 @@ tuned-adm profile network-throughput
 tuned-adm active
 ```
 
+```
+#关闭tuned系统调优工具
+tuned-adm off
+```
+
 ### 网络和系统优化脚本
 MOD 支持各种队列算法，需使用对应内核
 ```
