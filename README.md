@@ -25,7 +25,7 @@ apt install amd64-microcode
 ### 启用tuned系统调优工具
 ```
 apt install tuned tuned-gtk tuned-utils tuned-utils-systemtap
-tuned-adm profile latency-performance
+tuned-adm profile network-throughput
 tuned-adm active
 ```
 
