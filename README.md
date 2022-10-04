@@ -24,13 +24,15 @@ apt install amd64-microcode
 
 ### 启用tuned系统调优工具
 ```
+#安装
 apt install tuned tuned-gtk tuned-utils tuned-utils-systemtap
+#查看所有可选配置
+tuned-adm list
+#启用配置 network-throughput
 tuned-adm profile network-throughput
+#查看当前状态
 tuned-adm active
-```
-
-```
-#关闭tuned系统调优工具
+#关闭
 tuned-adm off
 ```
 
