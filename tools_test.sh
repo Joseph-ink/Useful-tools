@@ -22,7 +22,6 @@ Powered by Neko Neko Cloud
 }
 tcp_tune1(){ # 优化TCP窗口(bbr+fq)
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_mtu_probing/d' /etc/sysctl.conf
@@ -32,12 +31,21 @@ sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_adv_win_scale/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_moderate_rcvbuf/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
-sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
+sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
+sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
+sed -i '/net.core.optmem_max/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_slow_start_after_idle/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_max_syn_backlog/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_max_tw_buckets/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_tw_reuse/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_fin_timeout/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_budget/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_budget_usecs/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
@@ -55,9 +63,9 @@ net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
 net.core.rmem_max = 33554432
 net.core.wmem_max = 33554432
-net.core.optmem_max = 40960
 net.ipv4.tcp_rmem= 4096 65536 33554432
 net.ipv4.tcp_wmem = 4096 65536 33554432
+net.core.optmem_max = 40960
 net.ipv4.tcp_slow_start_after_idle =0
 net.ipv4.tcp_max_syn_backlog = 30000
 net.ipv4.tcp_max_tw_buckets = 2000000
@@ -76,7 +84,6 @@ sysctl -p && sysctl --system
 
 tcp_tune2(){ # 优化TCP窗口(bbr+fq_pie)
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_mtu_probing/d' /etc/sysctl.conf
@@ -86,12 +93,21 @@ sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_adv_win_scale/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_moderate_rcvbuf/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
-sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
+sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
+sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
+sed -i '/net.core.optmem_max/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_slow_start_after_idle/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_max_syn_backlog/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_max_tw_buckets/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_tw_reuse/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_fin_timeout/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_budget/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_budget_usecs/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
@@ -109,9 +125,9 @@ net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
 net.core.rmem_max = 33554432
 net.core.wmem_max = 33554432
-net.core.optmem_max = 40960
 net.ipv4.tcp_rmem= 4096 65536 33554432
 net.ipv4.tcp_wmem = 4096 65536 33554432
+net.core.optmem_max = 40960
 net.ipv4.tcp_slow_start_after_idle =0
 net.ipv4.tcp_max_syn_backlog = 30000
 net.ipv4.tcp_max_tw_buckets = 2000000
@@ -128,7 +144,6 @@ sysctl -p && sysctl --system
 
 tcp_tune3(){ # 优化TCP窗口(bbrplus+fq)
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_mtu_probing/d' /etc/sysctl.conf
@@ -138,12 +153,21 @@ sed -i '/net.ipv4.tcp_fack/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_window_scaling/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_adv_win_scale/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_moderate_rcvbuf/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
-sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
+sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
+sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
+sed -i '/net.core.optmem_max/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_slow_start_after_idle/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_max_syn_backlog/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_max_tw_buckets/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_tw_reuse/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_fin_timeout/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_budget/d' /etc/sysctl.conf
+sed -i '/net.core.netdev_budget_usecs/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
@@ -161,9 +185,9 @@ net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
 net.core.rmem_max = 33554432
 net.core.wmem_max = 33554432
-net.core.optmem_max = 40960
 net.ipv4.tcp_rmem= 4096 65536 33554432
 net.ipv4.tcp_wmem = 4096 65536 33554432
+net.core.optmem_max = 40960
 net.ipv4.tcp_slow_start_after_idle =0
 net.ipv4.tcp_max_syn_backlog = 30000
 net.ipv4.tcp_max_tw_buckets = 2000000
