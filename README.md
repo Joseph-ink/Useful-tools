@@ -42,6 +42,14 @@ MOD 支持各种队列算法，需使用对应内核
 bash <(curl -Ls https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tools_vv.sh)
 ```
 
+### 修改NIC缓冲
+```
+# 查看网卡支持范围（设置参数必须小于Pre-set maximums）
+ethtool -g eth0
+# 调整缓冲大小（举例）
+ethtool -G eth0 rx 4096 tx 4096 rx-jumbo 4096
+```
+
 ### 更新Ubuntu 22.04 LTS
 替换 focal 为 jammy
 ```
