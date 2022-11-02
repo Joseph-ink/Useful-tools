@@ -300,3 +300,17 @@ go install github.com/zu1k/nali@latest
 ```
 find / -name httpd.conf
 ```
+
+### crates.io对应版本包下载地址规则
+```
+https://crates.io/api/v1/crates/{crate名}/{版本号}/download
+```
+
+```
+举例：
+ff-zeroize = { version = "0.6.3", features = [“derive”]}
+下载路径为：
+https://crates.io/api/v1/crates/ff-zeroize/0.6.3/download
+
+下载后解压，即可在Cargo.toml中指定 [dependencies] 依赖项的本地路径
+```
