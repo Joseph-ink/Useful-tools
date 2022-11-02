@@ -312,5 +312,5 @@ ff-zeroize = { version = "0.6.3", features = [“derive”]}
 下载路径为：
 https://crates.io/api/v1/crates/ff-zeroize/0.6.3/download
 
-下载后解压，即可在Cargo.toml中指定 [dependencies] 依赖项的本地路径
+下载后解压.crate文件得到源码文件夹；即可在Cargo.toml中指定 [dependencies] 依赖项的本地路径。
 ```
