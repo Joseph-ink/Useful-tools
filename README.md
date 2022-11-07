@@ -6,6 +6,10 @@
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_mod.sh" && chmod +x tcp_mod.sh && ./tcp_mod.sh
 ```
 
+#### 测试版脚本
+```
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_test.sh" && chmod +x tcp_test.sh && ./tcp_test.sh
+```
 ### 更新CPU微码
 Debian 11增加源 *vi /etc/apt/sources.list*
 ```
