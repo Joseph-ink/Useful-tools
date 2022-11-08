@@ -204,7 +204,7 @@ pip-review --auto
 ```
 
 ### CDN优选
-#### 包含Cloudflare、Cloudfront ip段，数据来自BGP工具，经过移动宽带测试初筛
+#### 包含Cloudflare、Cloudfront ip段，数据来自BGP工具
 ```
 # 如果是第一次使用，则建议创建新文件夹（后续更新请跳过该步骤）
 mkdir CloudflareST
@@ -213,7 +213,7 @@ mkdir CloudflareST
 cd CloudflareST
 
 # 下载 CloudflareST 压缩包
-wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.0.3/CloudflareST_linux_amd64.tar.gz
+wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.1.0/CloudflareST_linux_amd64.tar.gz
 
 # 解压
 tar -zxf CloudflareST_linux_amd64.tar.gz
@@ -227,11 +227,11 @@ rm -rf ipv6.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv6_all.txt && chmod +x cf_ipv6_all.txt
 
 #（可选）首次运行IPv6延迟测试，不含下载测速
-# ./CloudflareST -f cf_ipv6.txt -ipv6 -p 200 -tll 15 -tl 150 -dd
+# ./CloudflareST -f cf_ipv6.txt -p 200 -tll 15 -tl 150 -dd
 # 结果保存在result.csv，SSH也会显示
 
 #（必选）将筛选后的低延迟HK IPv6进行速度测试
-./CloudflareST -f cf_ipv6_hk.txt -ipv6 -p 200 -tll 15 -tl 150
+./CloudflareST -f cf_ipv6_hk.txt -p 200 -tll 15 -tl 150
 
 # IPv4优选：
 rm -rf ip.txt
