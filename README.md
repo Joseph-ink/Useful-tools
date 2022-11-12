@@ -318,3 +318,12 @@ https://crates.io/api/v1/crates/ff-zeroize/0.6.3/download
 
 下载后解压.crate文件得到源码文件夹；即可在Cargo.toml中指定 [dependencies] 依赖项的本地路径。
 ```
+
+### Linux安装GCC编译器
+```
+apt install build-essential -y
+```
+### 查看版本号验证GCC安装成功
+```
+gcc --version
+```
