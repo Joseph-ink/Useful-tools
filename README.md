@@ -342,7 +342,7 @@ rustc --print cfg
 ```
 rustc --print cfg -C target-cpu=native
 ```
-可以指定CPU进行核对
+可以指定CPU进行核对,举例 skylake-avx512
 ```
 rustc --print cfg -C target-cpu=skylake-avx512
 ```
