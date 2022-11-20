@@ -327,3 +327,22 @@ apt install build-essential -y
 ```
 gcc --version
 ```
+
+### target-cpu
+指示 rustc 为特定处理器生成代码
+
+可以查看当前平台指定cpu 参数传递的有效选项
+```
+rustc --print target-cpus
+```
+通过对比输出文本确定CPU特性是否被完全发现
+```
+rustc --print cfg
+```
+```
+rustc --print cfg -C target-cpu=native
+```
+可以指定CPU进行核对
+```
+rustc --print cfg -C target-cpu=skylake-avx512
+```
