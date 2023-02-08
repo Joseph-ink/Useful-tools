@@ -21,13 +21,14 @@ apt install intel-microcode iucode-tool
 apt install amd64-microcode
 ```
 
-### 启用tuned系统调优工具
+### 启用tuned系统调优工具(ARM机型不建议启用)
 ```
 #安装
 apt install tuned tuned-gtk tuned-utils tuned-utils-systemtap
 #查看所有可选配置
 tuned-adm list
 #启用配置 network-throughput
+（对于限定性能基线机型建议采用balanced）
 tuned-adm profile network-throughput
 #查看当前状态
 tuned-adm active
