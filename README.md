@@ -350,3 +350,8 @@ rustc --print cfg -C target-cpu=skylake-avx512
 ```
 grep '^CONFIG_NET_SCH_' /boot/config-$(uname -r)
 ```
+
+### wget下载civitai模型办法，替换模型文件id即可
+```
+wget https://civitai.com/api/download/models/{modelVersionId} --content-disposition
+```
