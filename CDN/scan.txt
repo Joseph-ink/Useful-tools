@@ -1,0 +1,33 @@
+*.arrange.jalan.net,O=Recruit Co.\, Ltd.
+*.au-market.com,O=KDDI CORPORATION
+*.ciggws.net,O=Canon Inc.,ST=Tokyo,C=JP
+*.d2c.ne.jp,O=D2C Inc.
+*.dmm.com,O=DMM.com LLC
+*.ebookjapan.jp,OU=Infrastructure Development Dept.,O=eBOOK Initiative Japan Co.\, Ltd.
+*.ebookstore.sony.jp,O=Sony Music Entertainment (Japan) Inc.
+*.j-a-net.jp,O=株式会社アドウェイズ
+*.lifenet-seimei.co.jp,O=LIFENET INSURANCE COMPANY
+*.n-ship.jp,O=NEXCO System Solutions Company Limited
+*.payment.global.rakuten.com,O=Rakuten Group\, Inc.
+*.pcmax.jp,O=Max Co.\, Ltd
+*.smt.docomo.ne.jp,OU=Marketing & Media Department,O=NTT DOCOMO\, INC.
+*.srv.ygles.com,O=CANON INC.
+*.videopass.auone.jp,O=KDDI CORPORATION
+*.web.docomo.ne.jp,OU=Service Design Department,O=NTT DOCOMO.INC
+cont.mydaiz.smt.docomo.ne.jp,O=NTT DOCOMO.INC
+daws-api.tv-asahi.co.jp,OU=IoTv Center,O=tv asahi corporation
+dcsgtk.wni.co.jp,O=Weathernews Inc.
+ecnavi.jp,O=DIGITALIO\, Inc.
+gate.justsystems.com,O=JustSystems Corporation
+hop-apl.heiwado.jp,O=HEIWADO CO.\
+login-test.suntory.co.jp,OU=Information Systems Department2,O=Suntory Business Systems Limited.
+mfi-device02-s1.fnopf.jp,O=FeliCa Networks\, Inc.
+mfi-device02.fnopf.jp,O=FeliCa Networks\, Inc.
+pr.boatrace.jp,O=Boat Race Promotion Association
+ss-api-stg-fb.fujifilm.com,O=FUJIFILM Business Innovation Corp.
+st.boatrace.jp,O=Boat Race Promotion Association
+www.abc-mart.net,O=ABC-MART\,INC.,STREET=1-12-1\, Dogenzaka
+www.dmkt-sp.jp,OU=Content Business Department,O=NTT DOCOMO\,INC.
+www.kddi-fs.com,O=ａｕフィナンシャルサービス株式会社
+www.premiumoutlets.co.jp,O=MITSUBISHI ESTATE SIMON CO.\
+xevokk-jtc.com,O=Xevo K.K.,ST=Tokyo,C=JP

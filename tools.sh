@@ -21,6 +21,12 @@ Powered by Neko Neko Cloud
 "
 }
 tcp_tune1(){ # 优化TCP窗口(bbr+fq)
+sed -i '/net.ipv4.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh3/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh3/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
@@ -37,18 +43,15 @@ sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
 sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.optmem_max/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_slow_start_after_idle/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_max_syn_backlog/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_max_tw_buckets/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_tw_reuse/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_fin_timeout/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_budget/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_budget_usecs/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
+net.ipv4.neigh.default.gc_thresh1=2048
+net.ipv4.neigh.default.gc_thresh2=4096
+net.ipv4.neigh.default.gc_thresh3=8192
+net.ipv6.neigh.default.gc_thresh1=2048
+net.ipv6.neigh.default.gc_thresh2=4096
+net.ipv6.neigh.default.gc_thresh3=8192
 net.ipv4.tcp_no_metrics_save=1
 net.ipv4.tcp_ecn=0
 net.ipv4.tcp_frto=0
@@ -61,19 +64,10 @@ net.ipv4.tcp_adv_win_scale=2
 net.ipv4.tcp_moderate_rcvbuf=1
 net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
-net.core.rmem_max = 37331520
-net.core.wmem_max = 37331520
-net.ipv4.tcp_rmem= 4096 65536 37331520
-net.ipv4.tcp_wmem = 4096 65536 37331520
-net.core.optmem_max = 40960
-net.ipv4.tcp_slow_start_after_idle =0
-net.ipv4.tcp_max_syn_backlog = 30000
-net.ipv4.tcp_max_tw_buckets = 2000000
-net.ipv4.tcp_tw_reuse = 1
-net.ipv4.tcp_fin_timeout = 10
-net.core.netdev_max_backlog = 100000
-net.core.netdev_budget = 60000
-net.core.netdev_budget_usecs = 6000
+net.core.rmem_max = 33554432
+net.core.wmem_max = 33554432
+net.ipv4.tcp_rmem= 4096 65536 16777216
+net.ipv4.tcp_wmem = 4096 65536 33554432
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
 EOF
@@ -83,6 +77,12 @@ sysctl -p && sysctl --system
 
 
 tcp_tune2(){ # 优化TCP窗口(bbr+fq_pie)
+sed -i '/net.ipv4.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh3/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh3/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
@@ -99,18 +99,15 @@ sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
 sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.optmem_max/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_slow_start_after_idle/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_max_syn_backlog/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_max_tw_buckets/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_tw_reuse/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_fin_timeout/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_budget/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_budget_usecs/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
+net.ipv4.neigh.default.gc_thresh1=2048
+net.ipv4.neigh.default.gc_thresh2=4096
+net.ipv4.neigh.default.gc_thresh3=8192
+net.ipv6.neigh.default.gc_thresh1=2048
+net.ipv6.neigh.default.gc_thresh2=4096
+net.ipv6.neigh.default.gc_thresh3=8192
 net.ipv4.tcp_no_metrics_save=1
 net.ipv4.tcp_ecn=0
 net.ipv4.tcp_frto=0
@@ -123,19 +120,10 @@ net.ipv4.tcp_adv_win_scale=2
 net.ipv4.tcp_moderate_rcvbuf=1
 net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
-net.core.rmem_max = 37331520
-net.core.wmem_max = 37331520
-net.ipv4.tcp_rmem= 4096 65536 37331520
-net.ipv4.tcp_wmem = 4096 65536 37331520
-net.core.optmem_max = 40960
-net.ipv4.tcp_slow_start_after_idle =0
-net.ipv4.tcp_max_syn_backlog = 30000
-net.ipv4.tcp_max_tw_buckets = 2000000
-net.ipv4.tcp_tw_reuse = 1
-net.ipv4.tcp_fin_timeout = 10
-net.core.netdev_max_backlog = 100000
-net.core.netdev_budget = 60000
-net.core.netdev_budget_usecs = 6000
+net.core.rmem_max = 33554432
+net.core.wmem_max = 33554432
+net.ipv4.tcp_rmem= 4096 65536 16777216
+net.ipv4.tcp_wmem = 4096 65536 33554432
 net.core.default_qdisc=fq_pie
 net.ipv4.tcp_congestion_control=bbr
 EOF
@@ -143,6 +131,12 @@ sysctl -p && sysctl --system
 }
 
 tcp_tune3(){ # 优化TCP窗口(bbrplus+fq)
+sed -i '/net.ipv4.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv4.neigh.default.gc_thresh3/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh1/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh2/d' /etc/sysctl.conf
+sed -i '/net.ipv6.neigh.default.gc_thresh3/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_no_metrics_save/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_ecn/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_frto/d' /etc/sysctl.conf
@@ -159,18 +153,15 @@ sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
 sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.optmem_max/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_slow_start_after_idle/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_max_syn_backlog/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_max_tw_buckets/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_tw_reuse/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_fin_timeout/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_budget/d' /etc/sysctl.conf
-sed -i '/net.core.netdev_budget_usecs/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 cat >> /etc/sysctl.conf << EOF
+net.ipv4.neigh.default.gc_thresh1=2048
+net.ipv4.neigh.default.gc_thresh2=4096
+net.ipv4.neigh.default.gc_thresh3=8192
+net.ipv6.neigh.default.gc_thresh1=2048
+net.ipv6.neigh.default.gc_thresh2=4096
+net.ipv6.neigh.default.gc_thresh3=8192
 net.ipv4.tcp_no_metrics_save=1
 net.ipv4.tcp_ecn=0
 net.ipv4.tcp_frto=0
@@ -183,19 +174,10 @@ net.ipv4.tcp_adv_win_scale=2
 net.ipv4.tcp_moderate_rcvbuf=1
 net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
-net.core.rmem_max = 37331520
-net.core.wmem_max = 37331520
-net.ipv4.tcp_rmem= 4096 65536 37331520
-net.ipv4.tcp_wmem = 4096 65536 37331520
-net.core.optmem_max = 40960
-net.ipv4.tcp_slow_start_after_idle =0
-net.ipv4.tcp_max_syn_backlog = 30000
-net.ipv4.tcp_max_tw_buckets = 2000000
-net.ipv4.tcp_tw_reuse = 1
-net.ipv4.tcp_fin_timeout = 10
-net.core.netdev_max_backlog = 100000
-net.core.netdev_budget = 60000
-net.core.netdev_budget_usecs = 6000
+net.core.rmem_max = 33554432
+net.core.wmem_max = 33554432
+net.ipv4.tcp_rmem= 4096 65536 16777216
+net.ipv4.tcp_wmem = 4096 65536 33554432
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbrplus
 EOF
