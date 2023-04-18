@@ -350,3 +350,13 @@ rustc --print cfg -C target-cpu=skylake-avx512
 ```
 grep '^CONFIG_NET_SCH_' /boot/config-$(uname -r)
 ```
+
+### 使用curl 命令来了解某个网站是否有HTTP/2协议支持，并过滤输出信息
+```
+curl -vso /dev/null --http2 https://www.https://www.aws.training/ 2>&1| grep "offering h2"
+```
+
+### wget下载civitai模型办法，替换模型文件id即可
+```
+wget https://civitai.com/api/download/models/{modelVersionId} --content-disposition
+```
