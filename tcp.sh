@@ -314,67 +314,70 @@ installlot() {
 }
 
 #安装xanmod内核  from xanmod.org
-installxanmodmainv3() {
+installxanmodmain() {
   kernel_version="5.5.1-xanmod1"
   bit=$(uname -m)
   if [[ ${bit} != "x86_64" ]]; then
     echo -e "${Error} 不支持x86_64以外的系统 !" && exit 1
   fi
-  rm -rf xanmod
-  mkdir xanmod && cd xanmod || exit
-  if [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
-    if [[ ${bit} == "x86_64" ]]; then
+  cd xanmod || exit
+  if [[ "${release}" == "centos" ]]; then
+    if [[ ${version} == "7" ]]; then
+      if [[ ${bit} == "x86_64" ]]; then
+        echo -e "如果下载地址出错，可能当前正在更新，超过半天还是出错请反馈，大陆自行解决污染问题"
+        github_tag=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep 'Centos_Kernel' | grep '_lts_latest_' | grep 'xanmod' | head -n 1 | awk -F '"' '{print $4}' | awk -F '[/]' '{print $8}')
+        github_ver=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}' | awk -F '[/]' '{print $9}' | awk -F '[-]' '{print $3}')
+        echo -e "获取的版本号为:${github_ver}"
+        kernel_version=$github_ver
+        detele_kernel_head
+        headurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}')
+        imgurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep -v 'headers' | grep -v 'devel' | awk -F '"' '{print $4}')
+        echo -e "正在检查headers下载连接...."
+        checkurl $headurl
+        echo -e "正在检查内核下载连接...."
+        checkurl $imgurl
+        wget -N -O kernel-headers-c7.rpm $headurl
+        wget -N -O kernel-c7.rpm $imgurl
+        yum install -y kernel-c7.rpm
+        yum install -y kernel-headers-c7.rpm
+      else
+        echo -e "${Error} 不支持x86_64以外的系统 !" && exit 1
+      fi
+    elif [[ ${version} == "8" ]]; then
+      echo -e "如果下载地址出错，可能当前正在更新，超过半天还是出错请反馈，大陆自行解决污染问题"
+      github_tag=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep 'Centos_Kernel' | grep '_lts_C8_latest_' | grep 'xanmod' | head -n 1 | awk -F '"' '{print $4}' | awk -F '[/]' '{print $8}')
+      github_ver=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}' | awk -F '[/]' '{print $9}' | awk -F '[-]' '{print $3}')
+      echo -e "获取的版本号为:${github_ver}"
+      kernel_version=$github_ver
       detele_kernel_head
-      headurl=https://github.com/xanmod/linux/releases/download/6.2.10-xanmod1/linux-headers-6.2.10-x64v3-xanmod1_6.2.10-x64v3-xanmod1-0.20230406.730922a_amd64.deb
-      imgurl=https://github.com/xanmod/linux/releases/download/6.2.10-xanmod1/linux-image-6.2.10-x64v3-xanmod1_6.2.10-x64v3-xanmod1-0.20230406.730922a_amd64.deb
+      headurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}')
+      imgurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep -v 'headers' | grep -v 'devel' | awk -F '"' '{print $4}')
       echo -e "正在检查headers下载连接...."
       checkurl $headurl
       echo -e "正在检查内核下载连接...."
       checkurl $imgurl
-      wget -N -O linux-headers-d10.deb $headurl
-      wget -N -O linux-image-d10.deb $imgurl
-      dpkg -i linux-image-d10.deb
-      dpkg -i linux-headers-d10.deb
-    else
-      echo -e "${Error} 不支持x86_64以外的系统 !" && exit 1
+      wget -N -O kernel-headers-c8.rpm $headurl
+      wget -N -O kernel-c8.rpm $imgurl
+      yum install -y kernel-c8.rpm
+      yum install -y kernel-headers-c8.rpm
     fi
-  fi
 
-  cd .. && rm -rf xanmod
-  detele_kernel
-  BBR_grub
-  echo -e "${Tip} ${Red_font_prefix}请检查上面是否有内核信息，无内核千万别重启${Font_color_suffix}"
-  echo -e "${Tip} ${Red_font_prefix}rescue不是正常内核，要排除这个${Font_color_suffix}"
-  echo -e "${Tip} 重启VPS后，请重新运行脚本开启${Red_font_prefix}BBR${Font_color_suffix}"
-  check_kernel
-  stty erase '^H' && read -p "需要重启VPS后，才能开启BBR，是否现在重启 ? [Y/n] :" yn
-  [ -z "${yn}" ] && yn="y"
-  if [[ $yn == [Yy] ]]; then
-    echo -e "${Info} VPS 重启中..."
-    reboot
-  fi
-  #echo -e "${Tip} 内核安装完毕，请参考上面的信息检查是否安装成功及手动调整内核启动顺序"
-}
-
-installxanmodmainv4() {
-  kernel_version="5.5.1-xanmod1"
-  bit=$(uname -m)
-  if [[ ${bit} != "x86_64" ]]; then
-    echo -e "${Error} 不支持x86_64以外的系统 !" && exit 1
-  fi
-  rm -rf xanmod
-  mkdir xanmod && cd xanmod || exit
-  if [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
+  elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
     if [[ ${bit} == "x86_64" ]]; then
+      sourceforge_xanmod_main_ver=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/main/ | grep 'class="folder ">' | head -n 1 | awk -F '"' '{print $2}')
+      sourceforge_xanmod_main_file_img=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/main/${sourceforge_xanmod_main_ver}/ | grep 'linux-image' | head -n 1 | awk -F '"' '{print $2}')
+      sourceforge_xanmod_main_file_head=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/main/${sourceforge_xanmod_main_ver}/ | grep 'linux-headers' | head -n 1 | awk -F '"' '{print $2}')
+      echo -e "获取的xanmod next版本号为:${sourceforge_xanmod_main_ver}"
+      kernel_version=$sourceforge_xanmod_main_ver
       detele_kernel_head
-      headurl=https://github.com/xanmod/linux/releases/download/6.2.10-xanmod1/linux-headers-6.2.10-x64v4-xanmod1_6.2.10-x64v4-xanmod1-0.20230406.730922a_amd64.deb
-      imgurl=https://github.com/xanmod/linux/releases/download/6.2.10-xanmod1/linux-image-6.2.10-x64v4-xanmod1_6.2.10-x64v4-xanmod1-0.20230406.730922a_amd64.deb
+      #headurl=https://sourceforge.net/projects/xanmod/files/releases/cacule/${sourceforge_xanmod_cacule_ver}/${sourceforge_xanmod_cacule_file_head}/download
+      #imgurl=https://sourceforge.net/projects/xanmod/files/releases/cacule/${sourceforge_xanmod_cacule_ver}/${sourceforge_xanmod_cacule_file_img}/download
+      headurl=https://sourceforge.net/projects/xanmod/files/releases/main/${sourceforge_xanmod_main_ver}/${sourceforge_xanmod_main_file_head}/download
+      imgurl=https://sourceforge.net/projects/xanmod/files/releases/main/${sourceforge_xanmod_main_ver}/${sourceforge_xanmod_main_file_img}/download
       echo -e "正在检查headers下载连接...."
       checkurl $headurl
       echo -e "正在检查内核下载连接...."
       checkurl $imgurl
-      wget -N -O linux-headers-d10.deb $headurl
-      wget -N -O linux-image-d10.deb $imgurl
       dpkg -i linux-image-d10.deb
       dpkg -i linux-headers-d10.deb
     else
@@ -407,11 +410,73 @@ installxanmodrt() {
   fi
   rm -rf xanmod
   mkdir xanmod && cd xanmod || exit
-  if [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
-    if [[ ${bit} == "x86_64" ]]; then
+  if [[ "${release}" == "centos" ]]; then
+    if [[ ${version} == "7" ]]; then
+      if [[ ${bit} == "x86_64" ]]; then
+        echo -e "如果下载地址出错，可能当前正在更新，超过半天还是出错请反馈，大陆自行解决污染问题"
+        github_tag=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep 'Centos_Kernel' | grep '_lts_latest_' | grep 'xanmod' | head -n 1 | awk -F '"' '{print $4}' | awk -F '[/]' '{print $8}')
+        github_ver=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}' | awk -F '[/]' '{print $9}' | awk -F '[-]' '{print $3}')
+        echo -e "获取的版本号为:${github_ver}"
+        kernel_version=$github_ver
+        detele_kernel_head
+        headurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}')
+        imgurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep -v 'headers' | grep -v 'devel' | awk -F '"' '{print $4}')
+        echo -e "正在检查headers下载连接...."
+        checkurl $headurl
+        echo -e "正在检查内核下载连接...."
+        checkurl $imgurl
+        wget -N -O kernel-headers-c7.rpm $headurl
+        wget -N -O kernel-c7.rpm $imgurl
+        yum install -y kernel-c7.rpm
+        yum install -y kernel-headers-c7.rpm
+      else
+        echo -e "${Error} 不支持x86_64以外的系统 !" && exit 1
+      fi
+    elif [[ ${version} == "8" ]]; then
+      echo -e "如果下载地址出错，可能当前正在更新，超过半天还是出错请反馈，大陆自行解决污染问题"
+      github_tag=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep 'Centos_Kernel' | grep '_lts_C8_latest_' | grep 'xanmod' | head -n 1 | awk -F '"' '{print $4}' | awk -F '[/]' '{print $8}')
+      github_ver=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}' | awk -F '[/]' '{print $9}' | awk -F '[-]' '{print $3}')
+      echo -e "获取的版本号为:${github_ver}"
+      kernel_version=$github_ver
       detele_kernel_head
-      headurl=https://github.com/xanmod/linux/releases/download/6.1.13-rt7-xanmod1/linux-headers-6.1.13-x64v3-rt7-xanmod1_6.1.13-x64v3-rt7-xanmod1-0.20230223.8aba792_amd64.deb
-      imgurl=https://github.com/xanmod/linux/releases/download/6.1.13-rt7-xanmod1/linux-image-6.1.13-x64v3-rt7-xanmod1_6.1.13-x64v3-rt7-xanmod1-0.20230223.8aba792_amd64.deb
+      headurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep 'headers' | awk -F '"' '{print $4}')
+      imgurl=$(curl -s 'https://api.github.com/repos/ylx2016/kernel/releases' | grep ${github_tag} | grep 'rpm' | grep -v 'headers' | grep -v 'devel' | awk -F '"' '{print $4}')
+      echo -e "正在检查headers下载连接...."
+      checkurl $headurl
+      echo -e "正在检查内核下载连接...."
+      checkurl $imgurl
+      wget -N -O kernel-headers-c8.rpm $headurl
+      wget -N -O kernel-c8.rpm $imgurl
+      yum install -y kernel-c8.rpm
+      yum install -y kernel-headers-c8.rpm
+    fi
+
+  elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
+
+    if [[ ${bit} == "x86_64" ]]; then
+      # kernel_version="5.11.4-xanmod"
+      # xanmod_ver_b=$(rm -rf /tmp/url.tmp && curl -o /tmp/url.tmp 'https://dl.xanmod.org/dl/changelog/?C=N;O=D' && grep folder.gif /tmp/url.tmp | head -n 1 | awk -F "[/]" '{print $5}' | awk -F "[>]" '{print $2}')
+      # xanmod_ver_s=$(rm -rf /tmp/url.tmp && curl -o /tmp/url.tmp 'https://dl.xanmod.org/changelog/${xanmod_ver_b}/?C=M;O=D' && grep $xanmod_ver_b /tmp/url.tmp | head -n 3 | awk -F "[-]" '{print $2}')
+      sourceforge_xanmod_rt_ver=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/rt/ | grep 'class="folder ">' | head -n 1 | awk -F '"' '{print $2}')
+      sourceforge_xanmod_rt_file_img=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/rt/${sourceforge_xanmod_rt_ver}/ | grep 'linux-image' | head -n 1 | awk -F '"' '{print $2}')
+      sourceforge_xanmod_rt_file_head=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/rt/${sourceforge_xanmod_rt_ver}/ | grep 'linux-headers' | head -n 1 | awk -F '"' '{print $2}')
+      # sourceforge_xanmod_edge_ver=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/edge/ | grep 'class="folder ">' | head -n 1 | awk -F '"' '{print $2}')
+      # sourceforge_xanmod_stable_file_img=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/edge/${sourceforge_xanmod_edge_ver}/ | grep 'linux-image' | head -n 1 | awk -F '"' '{print $2}')
+      # sourceforge_xanmod_stable_file_head=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/edge/${sourceforge_xanmod_edge_ver}/ | grep 'linux-headers' | head -n 1 | awk -F '"' '{print $2}')
+      # sourceforge_xanmod_cacule_ver=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/cacule/ | grep 'class="folder ">' | head -n 1 | awk -F '"' '{print $2}')
+      # sourceforge_xanmod_cacule_file_img=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/cacule/${sourceforge_xanmod_cacule_ver}/ | grep 'linux-image' | head -n 1 | awk -F '"' '{print $2}')
+      # sourceforge_xanmod_cacule_file_head=$(curl -s https://sourceforge.net/projects/xanmod/files/releases/cacule/${sourceforge_xanmod_cacule_ver}/ | grep 'linux-headers' | head -n 1 | awk -F '"' '{print $2}')
+      echo -e "获取的xanmod rt edge版本号为:${sourceforge_xanmod_rt_ver}"
+      # kernel_version=$sourceforge_xanmod_edge_ver
+      # detele_kernel_head
+      # headurl=https://sourceforge.net/projects/xanmod/files/releases/edge/${sourceforge_xanmod_edge_ver}/${sourceforge_xanmod_stable_file_head}/download
+      # imgurl=https://sourceforge.net/projects/xanmod/files/releases/edge/${sourceforge_xanmod_edge_ver}/${sourceforge_xanmod_stable_file_img}/download
+      kernel_version=$sourceforge_xanmod_rt_ver
+      detele_kernel_head
+      #headurl=https://sourceforge.net/projects/xanmod/files/releases/cacule/${sourceforge_xanmod_cacule_ver}/${sourceforge_xanmod_cacule_file_head}/download
+      #imgurl=https://sourceforge.net/projects/xanmod/files/releases/cacule/${sourceforge_xanmod_cacule_ver}/${sourceforge_xanmod_cacule_file_img}/download
+      headurl=https://sourceforge.net/projects/xanmod/files/releases/rt/${sourceforge_xanmod_rt_ver}/${sourceforge_xanmod_rt_file_head}/download
+      imgurl=https://sourceforge.net/projects/xanmod/files/releases/rt/${sourceforge_xanmod_rt_ver}/${sourceforge_xanmod_rt_file_img}/download
       echo -e "正在检查headers下载连接...."
       checkurl $headurl
       echo -e "正在检查内核下载连接...."
@@ -1097,8 +1162,7 @@ start_menu() {
  ${Green_font_prefix}3.${Font_color_suffix} 安装 Lotserver(锐速)内核
  ${Green_font_prefix}5.${Font_color_suffix} 安装 BBRplus 6.x版mainline内核
  ${Green_font_prefix}6.${Font_color_suffix} 安装 xanmod 6.x版rt内核
- ${Green_font_prefix}9.${Font_color_suffix} 安装 xanmod 6.x版MainlineV3内核
- ${Green_font_prefix}10.${Font_color_suffix} 安装 xanmod 6.x版MainlineV4内核
+ ${Green_font_prefix}9.${Font_color_suffix} 安装 xanmod 6.x版mainline内核
  ${Green_font_prefix}11.${Font_color_suffix} 使用BBR+FQ加速
  ${Green_font_prefix}12.${Font_color_suffix} 使用BBR+FQ_PIE加速 
  ${Green_font_prefix}13.${Font_color_suffix} 使用BBR+CAKE加速
@@ -1147,10 +1211,7 @@ start_menu() {
     check_sys_xanmod_rt
     ;;
   9)
-    check_sys_xanmod_main_v3
-    ;; 
-  10)
-    check_sys_xanmod_main_v4
+    check_sys_xanmod_main
     ;; 
   11)
     startbbrfq
@@ -1672,33 +1733,17 @@ check_sys_bbrpluslatest() {
   fi
 }
 
-check_sys_xanmod_main_v3() {
+check_sys_xanmod_main() {
   check_version
   if [[ "${release}" == "centos" ]]; then
     if [[ ${version} == "7" || ${version} == "8" ]]; then
-      installxanmodmainv3
+      installxanmodmain
     else
       echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
     fi
   elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
     apt-get --fix-broken install -y && apt-get autoremove -y
-    installxanmodmainv3
-  else
-    echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
-  fi
-}
-
-check_sys_xanmod_main_v4() {
-  check_version
-  if [[ "${release}" == "centos" ]]; then
-    if [[ ${version} == "7" || ${version} == "8" ]]; then
-      installxanmodmainv4
-    else
-      echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
-    fi
-  elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
-    apt-get --fix-broken install -y && apt-get autoremove -y
-    installxanmodmainv4
+    installxanmodmain
   else
     echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
   fi
