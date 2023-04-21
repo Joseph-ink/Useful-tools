@@ -2,6 +2,9 @@
 
 checkurl() {
   local url=$1
+  if [ -z "$url" ]; then
+    echo -e "${Error} 链接为空，请检查网络或稍后再试" && exit 1
+  fi
   status_code=$(curl --write-out %{http_code} --silent --output /dev/null $url)
   if [ $status_code -eq 200 ]; then
     echo -e "连接正常"
@@ -62,36 +65,39 @@ install_xanmod_kernel() {
 done
 
 
+  echo -e "获取到的最新内核版本为：${latest_kernel}"
 
-echo -e "获取到的最新内核版本为：${latest_kernel}"
+  headers_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "headers" | grep "${cpu_instruction_set}" | head -n 1 | cut -d\" -f4)
+  kernel_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "image" | grep "${cpu_instruction_set}" | head -n 1 | cut -d\" -f4)
 
-headers_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "headers" | grep "${cpu_instruction_set}" | head -n 1 | cut -d\" -f4)
-kernel_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "image" | grep "${cpu_instruction_set}" | head -n 1 | cut -d\" -f4)
+  if [ -z "$headers_deb_url" ] || [ -z "$kernel_deb_url" ]; then
+    echo -e "${Error} 未找到headers或内核下载链接，请检查网络或稍后再试" && exit 1
+  fi
 
-echo -e "正在检查headers下载链接..."
-checkurl $headers_deb_url
-echo -e "正在检查内核下载链接..."
-checkurl $kernel_deb_url
+  echo -e "正在检查headers下载链接..."
+  checkurl $headers_deb_url
+  echo -e "正在检查内核下载链接..."
+  checkurl $kernel_deb_url
 
-wget -N -O xanmod-headers.deb $headers_deb_url
-wget -N -O xanmod-kernel.deb $kernel_deb_url
-
-if [[ "${release}" == "supported" ]]; then
-sudo dpkg -i xanmod-headers.deb
-sudo dpkg -i xanmod-kernel.deb
-sudo apt-get install -f
-else
-echo -e "${Error} 不支持此系统，仅支持Debian和Ubuntu !" && exit 1
-fi
-
-current_kernel=$(uname -r)
-echo -e "当前系统内核版本为：${current_kernel}"
-
-if [[ "${current_kernel}" == "${latest_kernel}" ]]; then
-echo -e "Xanmod内核安装完成，请重启系统以启用新内核"
-else
-echo -e "${Error} 内核安装失败，请检查日志并尝试重新安装"
-fi
+  wget -N -O xanmod-headers.deb $headers_deb_url
+  wget -N -O xanmod-kernel.deb $kernel_deb_url
+  
+  if [[ "${release}" == "supported" ]]; then
+  sudo dpkg -i xanmod-headers.deb
+  sudo dpkg -i xanmod-kernel.deb
+  sudo apt-get install -f
+  else
+  echo -e "${Error} 不支持此系统，仅支持Debian和Ubuntu !" && exit 1
+  fi
+  
+  current_kernel=$(uname -r)
+  echo -e "当前系统内核版本为：${current_kernel}"
+  
+  if [[ "${current_kernel}" == "${latest_kernel}" ]]; then
+  echo -e "Xanmod内核安装完成，请重启系统以启用新内核"
+  else
+  echo -e "${Error} 内核安装失败，请检查日志并尝试重新安装"
+  fi
 }
 
 install_xanmod_kernel
