@@ -64,8 +64,8 @@ done
 
 echo -e "获取到的最新内核版本为：${latest_kernel}"
 
-headers_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "headers" | grep "${cpu_instruction_set}" | head -n 1 | cut -d" -f4)
-kernel_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "image" | grep "${cpu_instruction_set}" | head -n 1 | cut -d" -f4)
+headers_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "headers" | grep "${cpu_instruction_set}" | head -n 1 | cut -d\" -f4)
+kernel_deb_url=$(curl -s https://api.github.com/repos/xanmod/linux/releases/tags/$latest_kernel | grep "browser_download_url" | grep "amd64.deb" | grep "image" | grep "${cpu_instruction_set}" | head -n 1 | cut -d\" -f4)
 
 echo -e "正在检查headers下载链接..."
 checkurl $headers_deb_url
