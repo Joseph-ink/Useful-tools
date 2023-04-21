@@ -52,15 +52,16 @@ install_xanmod_kernel() {
 
   # 下载并安装Xanmod内核
   echo -e "开始安装Xanmod内核（指令集：${cpu_instruction_set}）"
-
-  all_kernels=$(curl -s https://api.github.com/repos/xanmod/linux/releases | grep 'tag_name' | cut -d\" -f4 | grep -v "rt")
+  all_kernels=$(curl -s https://api.github.com/repos/xanmod/linux/releases | jq '.[] | select(.prerelease==false) | .tag_name' | tr -d '\"' | grep -v "rt")
   latest_kernel="0"
-
+  
   for kernel in $all_kernels; do
     if [[ $(printf '%s\n' "$kernel" "$latest_kernel" | sort -V | head -n1) != "$latest_kernel" ]]; then
       latest_kernel=$kernel
     fi
 done
+
+
 
 echo -e "获取到的最新内核版本为：${latest_kernel}"
 
