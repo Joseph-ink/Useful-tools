@@ -146,7 +146,7 @@ net.core.wmem_max=37331520
 net.ipv4.udp_rmem_min=8192
 net.ipv4.udp_wmem_min=8192
 net.core.default_qdisc=fq_pie
-net.ipv4.tcp_congestion_control=bbr
+net.ipv4.tcp_congestion_control=bbr2
 EOF
 sysctl -p && sysctl --system
 }
