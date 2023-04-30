@@ -69,26 +69,6 @@ deb http://security.debian.org/debian-security bullseye-security main
 deb http://ftp.debian.org/debian bullseye-backports main contrib non-free
 ```
 
-### 最新编译gost以及转发配置脚本
-Linux AMD64
-```
-wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/gost/gost.sh && chmod +x gost.sh && ./gost.sh
-```
-
-### CoalRelay隧道
-```
-# AMD64
-wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-amd64.sh && bash coal-amd64.sh
-# ARM64
-wget https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/coal-arm64.sh && bash coal-arm64.sh
-# 使用方法
-源节点+端口----目标节点+端口----监听节点+端口
-若目标节点即为最终落地节点，则配置监听节点ip:127.0.0.1，监听端口为架设服务的端口
-配置文件:/etc/CoalRelay/config.json
-重启命令:systemctl restart coal
-查看状态:systemctl status coal
-```
-
 ## 使用ACME.sh脚本进行TLS证书申请
 ```
 # 安装 ACME.sh脚本
@@ -285,19 +265,6 @@ sudo rm -rf 被锁定的文件、文件夹路径
 ```
 不知道路径的可以直接把文件或文件夹拖进终端
 
-
-### Linux 安装GOLANG教程
-```
-https://go.dev/doc/install
-```
-
-### 编译安装nali
-```
-go install github.com/zu1k/nali@latest
-生成二进制文件位置
-/root/go/bin/nali
-移动至/usr/local/bin并赋权
-```
 
 ### 使用Find命令查找文件，例如 httpd.conf
 ```
