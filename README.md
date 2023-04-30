@@ -5,6 +5,12 @@
 ```
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/tcp_test.sh" && chmod +x tcp_test.sh && ./tcp_test.sh
 ```
+
+使用最新的xanmod内核（仅支持Debian和Ubuntu AMD64架构）
+```
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/xanmod.sh" && chmod +x xanmod.sh && ./xanmod.sh
+```
+
 ### 更新CPU微码
 Debian 11增加源 *vi /etc/apt/sources.list*
 ```
