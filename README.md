@@ -333,3 +333,7 @@ curl -vso /dev/null --http2 https://www.https://www.aws.training/ 2>&1| grep "of
 ```
 wget https://civitai.com/api/download/models/{modelVersionId} --content-disposition
 ```
+### Warp官方客户端激活PLUS账号
+```
+warp-cli set-license <your-warp-plus-license-key>
+```
