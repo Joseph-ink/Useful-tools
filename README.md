@@ -56,6 +56,12 @@ ethtool -g eth0
 ethtool -G eth0 rx 4096 tx 4096 rx-jumbo 4096
 ```
 
+### 设置WARP Socks5代理
+```
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/warp.sh" && chmod +x warp.sh && ./warp.sh
+```
+
+
 ### 更新Ubuntu 22.04 LTS
 替换 focal 为 jammy
 ```
