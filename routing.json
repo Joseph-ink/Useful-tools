@@ -1,0 +1,33 @@
+{
+    "routing": {
+      "domainStrategy": "AsIs",
+      "rules": [
+        {
+          "type": "field",
+          "domain": [
+            "domain:gstatic.com"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "type": "field",
+          "domain": [
+            "domain:openai.com",
+            "domain:cloudflare.com",
+            "domain:stripe.com",
+            "domain:windows.net",
+            "domain:azurefd.net",
+            "domain:azureedge.net",
+            "domain:cloudflare.net",
+            "domain:identrust.com",
+            "domain:auth0.com",
+            "domain:sentry.io",
+            "domain:imgix.net",
+            "domain:ai.com"
+          ],
+          "outboundTag": "WARP"
+        }
+      ]
+    }
+  }
+  

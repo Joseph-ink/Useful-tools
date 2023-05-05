@@ -1,0 +1,40 @@
+{
+    "outbounds": [
+      {
+        "protocol": "freedom",
+        "settings": {
+          "domainStrategy": "UseIPv4"
+        },
+        "tag": "IPv4-out"
+      },
+      {
+        "protocol": "freedom",
+        "settings": {
+          "domainStrategy": "UseIPv6"
+        },
+        "tag": "IPv6-out"
+      },
+      {
+        "protocol": "freedom",
+        "settings": {},
+        "tag": "direct"
+      },
+      {
+        "protocol": "socks",
+        "settings": {
+          "servers": [
+            {
+              "address": "127.0.0.1",
+              "port": 40000
+            }
+          ]
+        },
+        "tag": "WARP"
+      },
+      {
+        "protocol": "blackhole",
+        "tag": "blackhole-out"
+      }
+    ]
+  }
+  
