@@ -343,3 +343,17 @@ wget https://civitai.com/api/download/models/{modelVersionId} --content-disposit
 ```
 warp-cli set-license <your-warp-plus-license-key>
 ```
+
+
+### 显示macOS隐藏文件
+```
+defaults write com.apple.Finder AppleShowAllFiles true
+killall Finder
+```
+
+重新隐藏
+```
+defaults write com.apple.Finder AppleShowAllFiles false and press Enter
+killall Finder
+```
+
