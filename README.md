@@ -353,7 +353,7 @@ killall Finder
 
 重新隐藏
 ```
-defaults write com.apple.Finder AppleShowAllFiles false and press Enter
+defaults write com.apple.Finder AppleShowAllFiles false
 killall Finder
 ```
 
