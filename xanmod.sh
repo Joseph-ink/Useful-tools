@@ -1,5 +1,12 @@
 #!/bin/bash
 
+install_jq() {
+  if ! command -v jq >/dev/null; then
+    echo -e "jq 未安装，正在自动安装 jq"
+    sudo apt-get update
+    sudo apt-get install jq -y
+  fi
+}
 
 checkurl() {
   local url=$1
@@ -105,4 +112,7 @@ done
   echo -e "Xanmod内核安装完成，请重启系统以启用新内核"
 }
 
+
+# 在主函数调用前先调用 install_jq 函数
+install_jq
 install_xanmod_kernel
