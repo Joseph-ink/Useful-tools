@@ -356,4 +356,17 @@ killall Finder
 defaults write com.apple.Finder AppleShowAllFiles false
 killall Finder
 ```
+### 持久golang编译环境
 
+编辑~/.bashrc文件
+```
+vi ~/.bashrc
+```
+文件的末尾添加
+```
+export PATH=$PATH:/usr/local/go/bin
+```
+保存并关闭文件，运行以下命令使改变立即生效
+```
+source ~/.bashrc
+```
