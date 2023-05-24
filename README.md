@@ -56,6 +56,11 @@ ethtool -g eth0
 ethtool -G eth0 rx 4096 tx 4096 rx-jumbo 4096
 ```
 
+### TUIC 一键安装脚本(需要自备证书)
+```
+wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/tuic-install/main/install_tuic.sh" && chmod +x install_tuic.sh && ./install_tuic.sh
+```
+
 ### 设置WARP Socks5代理
 ```
 wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/warp.sh" && chmod +x warp.sh && ./warp.sh
