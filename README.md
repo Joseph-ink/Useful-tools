@@ -375,3 +375,10 @@ export PATH=$PATH:/usr/local/go/bin
 ```
 source ~/.bashrc
 ```
+
+### Linux挂载IPv6地址
+注意替换网卡名称，以及替换[ipv6]为你的可用ipv6地址
+```
+ifconfig eth0 inet6 add [ipv6]/64 up
+```
+
