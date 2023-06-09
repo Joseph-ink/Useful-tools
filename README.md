@@ -376,9 +376,21 @@ export PATH=$PATH:/usr/local/go/bin
 source ~/.bashrc
 ```
 
-### Linux挂载IPv6地址
+### Ubuntu挂载IPv6地址
+#### 一、临时方法
 注意替换网卡名称，以及替换[ipv6]为你的可用ipv6地址
 ```
 ifconfig eth0 inet6 add [ipv6]/64 up
+```
+#### 二、持久方法
+在 /etc/netplan/ 目录下找到yaml配置文件，其中增加以下内容，同样替换[ipv6]为你的可用ipv6地址
+```
+dhcp6: no
+addresses:
+  - [ipv6]/64
+```
+使用管理员权限使其生效
+```
+sudo netplan apply
 ```
 
