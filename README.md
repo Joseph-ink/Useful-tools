@@ -393,4 +393,13 @@ addresses:
 ```
 sudo netplan apply
 ```
-
+### 源码安装iproute2
+```
+apt-get update
+apt-get install build-essential flex libmnl-dev bison -y
+git clone git://git.kernel.org/pub/scm/network/iproute2/iproute2.git
+cd iproute2
+make
+sudo make install
+ip -V
+```
