@@ -387,7 +387,7 @@ ifconfig eth0 inet6 add [ipv6]/64 up
 ```
 dhcp6: no
 addresses:
-  - [ipv6]/64
+  - ipv6/64
 ```
 使用管理员权限使其生效
 ```
