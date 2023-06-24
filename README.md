@@ -403,24 +403,5 @@ make
 sudo make install
 ip -V
 ```
-### 编译linux内核方法
 
-```
-#准备环境
-apt-get update
-apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev debhelper
-
-#获取内核源代码
-git clone https://github.com/torvalds/linux.git
-cd linux
-
-#配置内核
-make menuconfig
-
-#编译内核
-make -j$(nproc)
-
-#生成deb包
-make deb-pkg
-```
 
