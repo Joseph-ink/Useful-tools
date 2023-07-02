@@ -330,6 +330,12 @@ rustc --print cfg -C target-cpu=native
 rustc --print cfg -C target-cpu=skylake-avx512
 ```
 
+处理Rust未引用依赖
+```
+rm Cargo.lock
+cargo fix --allow-dirty
+```
+
 ### 查看qdisc队列算法支持情况
 ```
 grep '^CONFIG_NET_SCH_' /boot/config-$(uname -r)
