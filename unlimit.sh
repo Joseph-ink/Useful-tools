@@ -54,7 +54,7 @@ cat >> /etc/systemd/system.conf <<EOF
 [Manager]
 DefaultTimeoutStopSec=30s
 DefaultLimitCORE=infinity
-DefaultLimitNOFILE=65535
+DefaultLimitNOFILE=1000000
 DefaultLimitNPROC=65535
 EOF
 
