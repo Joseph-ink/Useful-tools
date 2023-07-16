@@ -59,7 +59,13 @@ ethtool -g eth0
 # 调整缓冲大小（举例）
 ethtool -G eth0 rx 4096 tx 4096 rx-jumbo 4096
 ```
-
+### 启用网卡硬件特征
+```
+# 查看网卡支持的所有特性和当前的设置
+ethtool -k eth0
+# 开启具体特性
+ethtool -K eth0 rx-gro-list on rx-udp-gro-forwarding on
+```
 
 ### 设置WARP Socks5代理
 ```
