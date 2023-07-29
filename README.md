@@ -401,6 +401,12 @@ killall Finder
 wget https://civitai.com/api/download/models/{modelVersionId} --content-disposition
 ```
 
-
-
-
+### 设置Windows IPv4优先并屏蔽IPv6 DNS
+```
+设置是IPv6 DNS为"::"
+Win+R 在“运行”对话框中，输入regedit打开注册表编辑器。
+在以下路径：
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\
+查找或新增名为DisabledComponents的DWORD (32位)值。
+双击DisabledComponents，将值数据设置为十六进制20，然后点击确定。
+```
