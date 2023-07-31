@@ -74,6 +74,14 @@ sed -i 's/non-free/non-free non-free-firmware/g' /etc/apt/sources.list
 bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh') -d 11 -v 64 -p "自定义root密码" -port "自定义ssh端口"
 ```
 
+### Geekbench6 linux性能测试
+```
+x86-64
+https://cdn.geekbench.com/Geekbench-6.1.0-Linux.tar.gz
+aarch64
+https://cdn.geekbench.com/Geekbench-6.1.0-LinuxARMPreview.tar.gz
+```
+
 ## 网络相关
 
 ### 查看qdisc队列算法支持情况
