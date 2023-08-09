@@ -357,6 +357,15 @@ find / -name httpd.conf
 sudo /Applications/AdGuardHome/AdGuardHome -s start|stop|restart|status|install|uninstall
 ```
 
+### macOS下使用homebrew更新应用
+*需安装homebrew-cask-upgrade*
+```
+brew cu -ay --no-quarantine
+brew upgrade --no-quarantine
+# mas upgrade
+brew cleanup --prune=all
+```
+
 ### macOS下解决"pip command not found"的办法
 ```
 # 首先查看py3.10的包文件夹路径
