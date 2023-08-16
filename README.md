@@ -330,6 +330,15 @@ source ~/.bashrc
 curl -vso /dev/null --http2 https://www.https://www.aws.training/ 2>&1| grep "offering h2"
 ```
 
+### 查看软件源各分支软件包版本
+```
+apt install devscripts
+```
+安装后可使用 rmadison 命令查询，例如
+```
+rmadison vim
+```
+
 
 ## 日常tips
 
