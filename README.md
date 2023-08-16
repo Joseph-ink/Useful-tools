@@ -68,6 +68,12 @@ sed -i 's/bullseye/bookworm/g' /etc/apt/sources.list.d/*.list
 ```
 sed -i 's/non-free/non-free non-free-firmware/g' /etc/apt/sources.list
 ```
+### Debian软件源使用testing分支
+```
+deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian testing-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian-security testing-security main contrib non-free non-free-firmware
+```
 
 ### 一键DD脚本（默认Debian 11）
 ```
