@@ -278,6 +278,12 @@ apt install build-essential -y
 gcc --version
 ```
 
+### Linux安装最新LLVM/Clang
+```
+bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+export PATH=/usr/lib/llvm-17/bin:$PATH
+```
+
 ### crates.io对应版本包下载地址规则
 ```
 https://crates.io/api/v1/crates/{crate名}/{版本号}/download
