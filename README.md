@@ -165,6 +165,17 @@ sudo netplan apply
 ```
 git clone git://git.kernel.org/pub/scm/network/iproute2/iproute2.git
 cd iproute2
+在iproute2根目录下创建patches文件夹
+mkdir -p patches
+cd patches
+将bbrv3的三个补丁放入其中
+wget https://raw.githubusercontent.com/google/bbr/v3/0001-ss-output-TCP-BBRv3-diag-information.patch
+wget https://raw.githubusercontent.com/google/bbr/v3/0002-ip-introduce-the-ecn_low-per-route-feature.patch
+wget https://raw.githubusercontent.com/google/bbr/v3/0003-ss-display-ecn_low-if-tcp_info-tcpi_options-TCPI_OPT.patch
+cd ..
+patch -p1 < patches/0001-ss-output-TCP-BBRv3-diag-information.patch
+patch -p1 < patches/0002-ip-introduce-the-ecn_low-per-route-feature.patch
+patch -p1 < patches/0003-ss-display-ecn_low-if-tcp_info-tcpi_options-TCPI_OPT.patch
 make
 sudo make install
 ip -V
