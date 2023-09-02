@@ -458,3 +458,17 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\
 查找或新增名为DisabledComponents的DWORD (32位)值。
 双击DisabledComponents，将值数据设置为十六进制20，然后点击确定。
 ```
+
+### PDF识别
+meta开源工具nougat（适合英文论文等格式复杂文本）
+```
+pip install nougat-ocr
+nougat -o path/to/save_file.pdf path/to/original_file.pdf
+```
+OCRmyPDF（适合多语言简单文本格式）
+```
+apt install ocrmypdf
+apt-cache search tesseract-ocr
+apt-get install tesseract-ocr-chi-sim tesseract-ocr-eng
+ocrmypdf -l chi_sim+eng input.pdf output.pdf
+```
