@@ -472,3 +472,26 @@ apt-cache search tesseract-ocr
 apt-get install tesseract-ocr-chi-sim tesseract-ocr-eng
 ocrmypdf -l chi_sim+eng input.pdf output.pdf
 ```
+
+### Mac配置 VS Code环境变量
+```
+打开 vscode
+按 ⌘ command + ⇧ shift + P
+
+在输入框看到
+>
+
+继续输入
+path
+
+找到选项
+Shell Command: Install 'code' command in PATH
+
+鼠标点击它 或者 键盘选择中后按回车
+
+VS code申请权限并同意
+
+终端输入命令
+code .
+如果打开了 vscode并打开位于本级目录文件夹，即配置完成。
+```
