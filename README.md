@@ -250,6 +250,27 @@ sed -i 's/^.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/ssh
 reboot
 ```
 
+### 使用公私钥登录VPS
+1、机器上生成SSH密钥对（使用root账号生成）:
+```
+ssh-keygen
+```
+默认的位置`~/.ssh`将会生成两个文件：一个私钥 (`id_rsa`) 和一个公钥 (`id_rsa.pub`)。
+
+2、手动复制公钥到VPS：
+```
+cat ~/.ssh/id_rsa.pub
+```
+复制输出的内容，粘贴公钥到`~/.ssh/authorized_keys`：
+```
+vi ~/.ssh/authorized_keys
+```
+保存并退出
+
+3、使用私钥登录到VPS
+注：生成的id_rsa文件是SSH私钥，它没有文件扩展名。
+
+
 ### Oracle Cloud VPS在ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口限制命令
 ```
 #开放所有端口
