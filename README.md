@@ -240,7 +240,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Usef
 
 ## 管理和监控
 
-### 切换VPS登录账号至root
+### 使用密码验证登录VPS root账号
 请注意修改以下“password”为你需要设置的密码，请勿直接使用，防止简单密码爆破；
 请切换至root账号或者使用sudo运行代码。
 ```
@@ -250,7 +250,7 @@ sed -i 's/^.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/ssh
 reboot
 ```
 
-### 使用公私钥登录VPS
+### 使用公私钥验证登录VPS root账号
 1、机器上生成SSH密钥对（使用root账号生成）:
 ```
 ssh-keygen
