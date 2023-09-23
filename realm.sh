@@ -77,19 +77,26 @@ EOF
 
   cat > /etc/systemd/system/realm.service <<EOF
 [Unit]
-After=network.service
+Description=realm
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
 
 [Service]
+Type=simple
+User=root
+Restart=on-failure
+RestartSec=5s
+DynamicUser=true
 ExecStart=/etc/realm/realm -c /etc/realm/config.toml
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 EOF
 
   chmod 664 /etc/systemd/system/realm.service
   systemctl daemon-reload
   systemctl enable realm
-
+  systemctl start realm
   echo "安装完成！"
 }
 
@@ -146,8 +153,8 @@ restart_service() {
 }
 
 uninstall_realm() {
-  systemctl disable realm
   systemctl stop realm
+  systemctl disable realm
   rm -rf /etc/realm
   rm /etc/systemd/system/realm.service
   systemctl daemon-reload
