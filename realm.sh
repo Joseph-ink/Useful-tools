@@ -82,11 +82,6 @@ After=network-online.target
 Wants=network-online.target systemd-networkd-wait-online.service
 
 [Service]
-Type=simple
-User=root
-Restart=on-failure
-RestartSec=5s
-DynamicUser=true
 ExecStart=/etc/realm/realm -c /etc/realm/config.toml
 
 [Install]
