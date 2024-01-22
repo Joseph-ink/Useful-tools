@@ -135,6 +135,10 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/Joseph-ink/Use
 ```
 warp-cli set-license <your-warp-plus-license-key>
 ```
+### 查看Warp启用情况，透过代理访问：
+```
+https://www.cloudflare.com/cdn-cgi/trace
+```
 
 ### Speedtest-Cli 测速
 ```
