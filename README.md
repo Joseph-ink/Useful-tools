@@ -53,11 +53,32 @@ tuned-adm off
 ```
 
 ## 系统更新
-### 更新Ubuntu 22.04 LTS
+### 更新Ubuntu 20.04 至 22.04 LTS
 替换 focal 为 jammy
 ```
 sed -i 's/focal/jammy/g' /etc/apt/sources.list
 sed -i 's/focal/jammy/g' /etc/apt/sources.list.d/*.list
+```
+
+### 更新Ubuntu 22.04 至 24.04 LTS
+使用 do-release-upgrade 命令升级
+```
+apt install ubuntu-release-upgrader-core
+```
+
+修改 /etc/update-manager/release-upgrades 文件，确保 Prompt 值为 lts：
+```
+Prompt=lts
+```
+
+查看确认
+```
+cat /etc/update-manager/release-upgrades | grep lts
+```
+
+执行命令升级系统
+```
+do-release-upgrade -d
 ```
 
 ### Debian 11 升级 12
