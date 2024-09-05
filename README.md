@@ -276,25 +276,50 @@ reboot
 ```
 
 ### 使用公私钥验证登录VPS root账号
-1、机器上生成SSH密钥对（使用root账号生成）:
-```
-ssh-keygen
-```
-默认的位置`~/.ssh`将会生成两个文件：一个私钥 (`id_rsa`) 和一个公钥 (`id_rsa.pub`)。
 
-2、手动复制公钥到VPS：
-```
-cat ~/.ssh/id_rsa.pub
-```
-复制输出的内容，粘贴公钥到`~/.ssh/authorized_keys`：
-```
-vi ~/.ssh/authorized_keys
-```
-保存并退出
+1. 生成新的 SSH 密钥对
+切换到`root`用户，生成新的SSH密钥对
 
-3、使用私钥登录到VPS
+```
+ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa
+```
+
+这将生成一个4096位的RSA密钥对:
+私钥（Private Key）: ~/.ssh/id_rsa
+公钥（Public Key）: ~/.ssh/id_rsa.pub
 注：生成的id_rsa文件是SSH私钥，它没有文件扩展名。
 
+2. 将公钥添加到 `authorized_keys`
+将公钥（`id_rsa.pub`）内容添加到`/root/.ssh/authorized_keys`文件中，以便使用新的密钥对进行SSH登录。
+
+```
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+```
+
+确保`authorized_keys`文件的权限是正确的：
+
+```
+chmod 600 /root/.ssh/authorized_keys
+```
+
+3. 配置 SSH 服务允许 `root` 登录
+你还需要确认SSH服务配置允许`root`用户登录。编辑`/etc/ssh/sshd_config`文件，确保以下行被正确配置：
+
+```bash
+PermitRootLogin yes
+```
+
+如果是`no`或者`prohibit-password`，修改为`yes`。
+
+4. 重启 SSH 服务
+配置修改完成后，重启SSH服务以应用新的配置：
+
+```bash
+systemctl restart ssh
+```
+
+5. 使用新证书登录
+可以使用新的SSH私钥通过`root`用户登录你的VPS
 
 ### Oracle Cloud VPS在ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口限制命令
 ```
