@@ -286,8 +286,10 @@ ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa
 ```
 
 这将生成一个4096位的RSA密钥对:
+```
 私钥（Private Key）: ~/.ssh/id_rsa
 公钥（Public Key）: ~/.ssh/id_rsa.pub
+```
 注：生成的id_rsa文件是SSH私钥，它没有文件扩展名。
 
 2. 将公钥添加到 `authorized_keys`
