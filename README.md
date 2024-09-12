@@ -573,3 +573,9 @@ VS code申请权限并同意
 code .
 如果打开了 vscode并打开位于本级目录文件夹，即配置完成。
 ```
+
+
+### iOS解锁 Chatgpt app 测试
+```
+curl https://ios.chat.openai.com/public-api/mobile/server_status/v1
+```
