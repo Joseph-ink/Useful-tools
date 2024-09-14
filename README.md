@@ -579,3 +579,9 @@ code .
 ```
 curl https://ios.chat.openai.com/public-api/mobile/server_status/v1
 ```
+
+### wget下载网页源代码
+当使用 wget 下载网页时遇到 403 Forbidden 错误，可以通过模拟浏览器的请求来绕过这个限制。
+```
+wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" https://example.com -O page.html
+```
