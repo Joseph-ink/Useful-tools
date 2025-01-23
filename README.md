@@ -186,6 +186,40 @@ addresses:
 sudo netplan apply
 ```
 
+### VPS挂载多个IPv6地址
+部分VPS提供商会分配整个/64 IPv6网段给单个VPS，可挂载多个IPv6更充分利用其特性。
+
+一、使用命令 `ip link show` 或 `ifconfig -a` 来查看VPS的网络接口名称
+
+二、从你的/64网段中选择你想要绑定的多个IPv6地址。
+例如，如果你的网段是 2001:db8:1234:5678::/64，你可以选择 2001:db8:1234:5678::1, 2001:db8:1234:5678::2 等等。
+
+三、配置网络接口
+编辑 /etc/network/interfaces 配置文件，例如 /etc/network/interfaces.d/50-cloud-init
+```
+auto eth0
+iface eth0 inet dhcp
+
+iface eth0 inet6 static
+    address 2001:db8:1234:5678::1
+    netmask 64
+
+iface eth0 inet6 static
+    address 2001:db8:1234:5678::2
+    netmask 64
+```
+保存并退出后，使用以下命令生效
+```
+sudo systemctl restart networking.service
+```
+四、验证配置生效
+```
+curl --interface 2001:db8:1234:5678::1 ip.sb
+curl --interface 2001:db8:1234:5678::2 ip.sb
+```
+输出显示ip为制定接口ip即为生效
+注意厂商可以采用自动配置方案，请确定重启后配置持久生效。
+
 ### 源码安装iproute2支持bbrv3新特性(相关依赖参考repo)
 ```
 git clone git://git.kernel.org/pub/scm/network/iproute2/iproute2.git
