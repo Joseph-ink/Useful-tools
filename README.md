@@ -196,6 +196,7 @@ sudo netplan apply
 
 三、配置网络接口
 编辑 /etc/network/interfaces 配置文件，例如 /etc/network/interfaces.d/50-cloud-init
+**强烈建议修改前备份原始配置，此处仅着重体现inet6部分配置**
 ```
 auto eth0
 iface eth0 inet dhcp
