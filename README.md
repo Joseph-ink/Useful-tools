@@ -221,6 +221,52 @@ curl --interface 2001:db8:1234:5678::2 ip.sb
 输出显示ip为制定接口ip即为生效
 注意厂商可以采用自动配置方案，请确定重启后配置持久生效。
 
+### VPS附加多个/64子网IPv6地址
+部分VPS提供商会分配多个/64 IPv6网段给用户使用，可附加多个网卡挂载多个/64子网下的不同IPv6更充分利用其特性。
+
+一、使用命令 `ip link show` 查看并记录VPS的不同网络接口的mac地址
+例如：
+```
+eth0 link/ether aa:aa:aa:aa:aa:00
+eth1 link/ether bb:bb:bb:bb:bb:00
+```
+
+**强烈建议修改前备份原始Netplan 配置文件 /etc/netplan/*.yaml**
+二、修改多网卡配置：
+```
+network:
+  version: 2
+  ethernets:
+    eth0:
+      match:
+        macaddress: "aa:aa:aa:aa:aa:00"
+      dhcp4: true
+      accept-ra: true  # 显式启用IPv6路由通告处理
+      set-name: "eth0"
+    eth1:
+      match:
+        macaddress: "bb:bb:bb:bb:bb:00"
+      dhcp4: true
+      accept-ra: true  # 启用IPv6路由通告处理，以期自动配置地址
+      set-name: "eth1"
+```
+三、应用 Netplan 配置：
+首先尝试应用 `netplan try `，Netplan 会在120秒内测试配置，如果失败会自动回滚。
+
+如果提示配置正常并且您可以通过 SSH 重新连接（如果断开），或者没有错误提示，则永久应用:
+```
+netplan apply
+```
+四、检查路由表：
+```
+ip -6 route show
+```
+五、通过接口名测试连接：
+```
+ping -6 -I eth0 google.com
+ping -6 -I eth1 google.com
+```
+
 ### 源码安装iproute2支持bbrv3新特性(相关依赖参考repo)
 ```
 git clone git://git.kernel.org/pub/scm/network/iproute2/iproute2.git
