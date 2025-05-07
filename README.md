@@ -231,8 +231,8 @@ eth0 link/ether aa:aa:aa:aa:aa:00
 eth1 link/ether bb:bb:bb:bb:bb:00
 ```
 
-**强烈建议修改前备份原始Netplan 配置文件 /etc/netplan/*.yaml**
 二、修改多网卡配置：
+**强烈建议修改前备份原始Netplan 配置文件 /etc/netplan/*.yaml**
 ```
 network:
   version: 2
