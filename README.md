@@ -224,7 +224,7 @@ curl --interface 2001:db8:1234:5678::2 ip.sb
 ### VPS附加多个/64子网IPv6地址
 部分VPS提供商会分配多个/64 IPv6网段给用户使用，可附加多个网卡挂载多个/64子网下的不同IPv6更充分利用其特性。
 
-一、使用命令 `ip link show` 查看并记录VPS的不同网络接口的mac地址
+一、使用命令 `ip link show` 查看并记录VPS的不同网络接口的mac地址**此处仅着重体现mac地址部分配置**
 例如：
 ```
 eth0 link/ether aa:aa:aa:aa:aa:00
