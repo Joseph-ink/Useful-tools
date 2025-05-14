@@ -96,6 +96,27 @@ deb http://deb.debian.org/debian testing-updates main contrib non-free non-free-
 deb http://deb.debian.org/debian-security testing-security main contrib non-free non-free-firmware
 ```
 
+使用新的 deb822 格式 修改配置文件 `/etc/apt/sources.list.d/debian.sources`
+```
+Types: deb deb-src
+URIs: http://deb.debian.org/debian/
+Suites: trixie
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://security.debian.org/debian-security/
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: http://deb.debian.org/debian/
+Suites: trixie-updates
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+```
+
 ### 一键DD脚本（默认Debian 11）
 ```
 bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh') -d 11 -v 64 -p "自定义root密码" -port "自定义ssh端口"
