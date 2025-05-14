@@ -287,6 +287,18 @@ sudo make install
 ip -V
 ```
 
+### 查询软件包在所有Debian发行版下的版本号
+
+rmadison 是 devscripts 软件包的一部分,非常适合快速查看全部分支的版本。
+```
+apt update
+apt install devscripts
+```
+举例openssh-server
+```
+rmadison openssh-server
+```
+
 ### 修改IPv6网关
 ```
 # 使用 route 命令临时增加（重启后失效）
