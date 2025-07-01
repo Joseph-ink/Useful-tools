@@ -525,6 +525,23 @@ rustc --print cfg -C target-cpu=skylake-avx512
 rm Cargo.lock
 cargo fix --allow-dirty
 ```
+### 切换Rust发布通道至 nightly 
+
+安装 nightly 版本：
+```
+rustup toolchain install nightly
+```
+
+查看您安装的所有 toolchains：
+```
+rustup toolchain list
+```
+
+在某个特定项目中使用 nightly：
+```
+cd ~/projects/needs-nightly
+rustup override set nightly
+```
 
 ### 持久golang编译环境
 
