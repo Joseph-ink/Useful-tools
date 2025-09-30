@@ -74,47 +74,103 @@ get_latest_version() {
     LATEST_VERSION=$(curl -s "https://api.github.com/repos/${REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
     
     if [ -z "$LATEST_VERSION" ]; then
-        print_warning "无法获取最新版本，尝试从主分支构建..."
-        BUILD_FROM_SOURCE=true
+        print_warning "无法获取最新版本"
+        LATEST_VERSION="develop"
     else
         print_info "最新版本: $LATEST_VERSION"
-        BUILD_FROM_SOURCE=false
     fi
+}
+
+# 检查并安装依赖
+check_dependencies() {
+    print_info "检查系统依赖..."
+    
+    local missing_deps=()
+    
+    # 检查必需的工具
+    if ! command -v curl &> /dev/null; then
+        missing_deps+=("curl")
+    fi
+    
+    if ! command -v git &> /dev/null; then
+        missing_deps+=("git")
+    fi
+    
+    if ! command -v tar &> /dev/null; then
+        missing_deps+=("tar")
+    fi
+    
+    # 如果有缺失的依赖，尝试安装
+    if [ ${#missing_deps[@]} -gt 0 ]; then
+        print_warning "缺少依赖: ${missing_deps[*]}"
+        print_info "尝试自动安装依赖..."
+        
+        if command -v apt-get &> /dev/null; then
+            apt-get update
+            apt-get install -y "${missing_deps[@]}"
+        elif command -v yum &> /dev/null; then
+            yum install -y "${missing_deps[@]}"
+        elif command -v dnf &> /dev/null; then
+            dnf install -y "${missing_deps[@]}"
+        else
+            print_error "无法自动安装依赖，请手动安装: ${missing_deps[*]}"
+            exit 1
+        fi
+    fi
+    
+    print_success "依赖检查完成"
 }
 
 # 下载二进制文件
 download_binary() {
-    if [ "$BUILD_FROM_SOURCE" = true ]; then
-        build_from_source
-        return
-    fi
+    print_info "尝试下载预编译二进制文件..."
     
-    local download_url="https://github.com/${REPO}/releases/download/${LATEST_VERSION}/rpxy-l4-${ARCH}-unknown-linux-gnu.tar.gz"
+    local download_url="https://github.com/${REPO}/releases/download/${LATEST_VERSION}/rpxy-l4-${ARCH}-unknown-linux-musl.tar.gz"
     local temp_file="/tmp/rpxy-l4.tar.gz"
     
-    print_info "下载 rpxy 二进制文件..."
     print_info "下载地址: $download_url"
     
-    if curl -L -o "$temp_file" "$download_url"; then
-        print_success "下载完成"
+    # 使用 -L 跟随重定向，-f 失败时返回错误，-s 静默模式，-S 显示错误
+    if curl -L -f -s -S -o "$temp_file" "$download_url" 2>&1; then
+        # 检查文件大小，如果太小（<1KB）可能不是有效文件
+        local file_size=$(stat -f%z "$temp_file" 2>/dev/null || stat -c%s "$temp_file" 2>/dev/null)
         
-        print_info "解压文件..."
-        tar -xzf "$temp_file" -C /tmp/
-        
-        if [ -f "/tmp/${ORIGINAL_BINARY_NAME}" ]; then
-            mv "/tmp/${ORIGINAL_BINARY_NAME}" "${INSTALL_DIR}/${BINARY_NAME}"
-            chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
-            print_success "二进制文件安装到 ${INSTALL_DIR}/${BINARY_NAME}"
-        else
-            print_error "解压后未找到二进制文件"
+        if [ "$file_size" -lt 1024 ]; then
+            print_warning "下载的文件过小 (${file_size} bytes)，可能不是有效的二进制文件"
+            rm -f "$temp_file"
             build_from_source
+            return
         fi
         
+        # 检查文件是否为有效的 gzip 文件
+        if file "$temp_file" 2>/dev/null | grep -q "gzip compressed"; then
+            print_success "下载完成 (${file_size} bytes)"
+            
+            print_info "解压文件..."
+            if tar -xzf "$temp_file" -C /tmp/ 2>/dev/null; then
+                if [ -f "/tmp/${ORIGINAL_BINARY_NAME}" ]; then
+                    mv "/tmp/${ORIGINAL_BINARY_NAME}" "${INSTALL_DIR}/${BINARY_NAME}"
+                    chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+                    print_success "二进制文件安装到 ${INSTALL_DIR}/${BINARY_NAME}"
+                    rm -f "$temp_file"
+                    return
+                else
+                    print_warning "解压后未找到二进制文件 ${ORIGINAL_BINARY_NAME}"
+                fi
+            else
+                print_warning "解压失败"
+            fi
+        else
+            print_warning "下载的文件不是有效的 gzip 压缩包"
+        fi
         rm -f "$temp_file"
     else
-        print_warning "下载失败，尝试从源码编译..."
-        build_from_source
+        print_warning "预编译二进制文件不可用"
     fi
+    
+    # 下载失败或解压失败，从源码编译
+    print_info "将从源码编译..."
+    build_from_source
 }
 
 # 从源码编译
@@ -123,26 +179,78 @@ build_from_source() {
     
     # 检查是否安装了 Rust
     if ! command -v cargo &> /dev/null; then
-        print_info "安装 Rust..."
+        print_info "安装 Rust 工具链..."
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        source "$HOME/.cargo/env"
+        
+        # 加载 Rust 环境
+        if [ -f "$HOME/.cargo/env" ]; then
+            source "$HOME/.cargo/env"
+        else
+            export PATH="$HOME/.cargo/bin:$PATH"
+        fi
+        
+        # 验证安装
+        if ! command -v cargo &> /dev/null; then
+            print_error "Rust 安装失败"
+            exit 1
+        fi
+        
+        print_success "Rust 安装完成"
+    fi
+    
+    # 安装编译所需的系统依赖
+    print_info "安装编译依赖..."
+    if command -v apt-get &> /dev/null; then
+        apt-get install -y build-essential pkg-config libssl-dev
+    elif command -v yum &> /dev/null; then
+        yum install -y gcc gcc-c++ make pkgconfig openssl-devel
+    elif command -v dnf &> /dev/null; then
+        dnf install -y gcc gcc-c++ make pkgconfig openssl-devel
     fi
     
     # 克隆仓库
     local temp_dir="/tmp/rpxy-build"
+    print_info "克隆源代码到 ${temp_dir}..."
     rm -rf "$temp_dir"
-    git clone "https://github.com/${REPO}.git" "$temp_dir"
+    
+    if ! git clone "https://github.com/${REPO}.git" "$temp_dir"; then
+        print_error "克隆仓库失败"
+        exit 1
+    fi
     
     cd "$temp_dir"
-    cargo build --release
     
-    cp "target/release/${ORIGINAL_BINARY_NAME}" "${INSTALL_DIR}/${BINARY_NAME}"
-    chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+    # 如果不是 develop 版本，切换到对应的标签
+    if [ "$LATEST_VERSION" != "develop" ]; then
+        print_info "切换到版本 ${LATEST_VERSION}..."
+        git checkout "$LATEST_VERSION"
+    fi
+    
+    print_info "开始编译 (这可能需要几分钟时间)..."
+    if cargo build --release; then
+        print_success "编译成功"
+        
+        if [ -f "target/release/${ORIGINAL_BINARY_NAME}" ]; then
+            cp "target/release/${ORIGINAL_BINARY_NAME}" "${INSTALL_DIR}/${BINARY_NAME}"
+            chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+            print_success "二进制文件已安装到 ${INSTALL_DIR}/${BINARY_NAME}"
+        else
+            print_error "编译产物不存在: target/release/${ORIGINAL_BINARY_NAME}"
+            cd -
+            rm -rf "$temp_dir"
+            exit 1
+        fi
+    else
+        print_error "编译失败"
+        cd -
+        rm -rf "$temp_dir"
+        exit 1
+    fi
     
     cd -
     rm -rf "$temp_dir"
     
-    print_success "编译完成"
+    print_success "源码编译完成"
 }
 
 # 创建必要的目录
@@ -564,6 +672,7 @@ main() {
     echo ""
     
     check_root
+    check_dependencies
     detect_arch
     get_latest_version
     create_directories
