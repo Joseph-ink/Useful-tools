@@ -88,7 +88,7 @@ check_dependencies() {
     local missing_deps=()
     
     # 检查必需的工具
-    if ! command -v curl &> /dev/null; then
+    if ! command -v curl &> /dev/null && ! command -v wget &> /dev/null; then
         missing_deps+=("curl")
     fi
     
@@ -106,12 +106,12 @@ check_dependencies() {
         print_info "尝试自动安装依赖..."
         
         if command -v apt-get &> /dev/null; then
-            apt-get update
-            apt-get install -y "${missing_deps[@]}"
+            apt-get update -qq
+            apt-get install -y "${missing_deps[@]}" wget
         elif command -v yum &> /dev/null; then
-            yum install -y "${missing_deps[@]}"
+            yum install -y "${missing_deps[@]}" wget
         elif command -v dnf &> /dev/null; then
-            dnf install -y "${missing_deps[@]}"
+            dnf install -y "${missing_deps[@]}" wget
         else
             print_error "无法自动安装依赖，请手动安装: ${missing_deps[*]}"
             exit 1
@@ -130,42 +130,92 @@ download_binary() {
     
     print_info "下载地址: $download_url"
     
-    # 使用 -L 跟随重定向，-f 失败时返回错误，-s 静默模式，-S 显示错误
-    if curl -L -f -s -S -o "$temp_file" "$download_url" 2>&1; then
-        # 检查文件大小，如果太小（<1KB）可能不是有效文件
+    # 删除旧文件
+    rm -f "$temp_file"
+    
+    # 使用 wget 或 curl 下载，wget 在处理 GitHub releases 时更可靠
+    if command -v wget &> /dev/null; then
+        print_info "使用 wget 下载..."
+        if wget -q --show-progress -O "$temp_file" "$download_url" 2>&1; then
+            download_success=true
+        else
+            download_success=false
+        fi
+    else
+        print_info "使用 curl 下载..."
+        # -L 跟随重定向，-f 失败时返回错误，-# 显示进度条
+        if curl -L -f -# -o "$temp_file" "$download_url" 2>&1; then
+            download_success=true
+        else
+            download_success=false
+        fi
+    fi
+    
+    if [ "$download_success" = true ] && [ -f "$temp_file" ]; then
+        # 检查文件大小
         local file_size=$(stat -f%z "$temp_file" 2>/dev/null || stat -c%s "$temp_file" 2>/dev/null)
         
-        if [ "$file_size" -lt 1024 ]; then
-            print_warning "下载的文件过小 (${file_size} bytes)，可能不是有效的二进制文件"
-            rm -f "$temp_file"
-            build_from_source
-            return
+        print_info "下载的文件大小: ${file_size} bytes"
+        
+        # 如果文件太小，可能是错误页面
+        if [ "$file_size" -lt 100000 ]; then
+            print_warning "文件大小异常，检查文件内容..."
+            # 显示文件前几行以便调试
+            echo "文件内容预览："
+            head -n 5 "$temp_file"
+            echo ""
         fi
         
-        # 检查文件是否为有效的 gzip 文件
-        if file "$temp_file" 2>/dev/null | grep -q "gzip compressed"; then
-            print_success "下载完成 (${file_size} bytes)"
+        # 检查文件类型
+        local file_type=$(file "$temp_file" 2>/dev/null)
+        print_info "文件类型: $file_type"
+        
+        if echo "$file_type" | grep -q "gzip compressed\|tar archive"; then
+            print_success "文件验证通过"
             
             print_info "解压文件..."
-            if tar -xzf "$temp_file" -C /tmp/ 2>/dev/null; then
+            # 清理旧的解压文件
+            rm -f "/tmp/${ORIGINAL_BINARY_NAME}"
+            
+            if tar -xzf "$temp_file" -C /tmp/ 2>&1; then
                 if [ -f "/tmp/${ORIGINAL_BINARY_NAME}" ]; then
                     mv "/tmp/${ORIGINAL_BINARY_NAME}" "${INSTALL_DIR}/${BINARY_NAME}"
                     chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
-                    print_success "二进制文件安装到 ${INSTALL_DIR}/${BINARY_NAME}"
-                    rm -f "$temp_file"
-                    return
+                    
+                    # 验证二进制文件
+                    if [ -x "${INSTALL_DIR}/${BINARY_NAME}" ]; then
+                        print_success "二进制文件安装到 ${INSTALL_DIR}/${BINARY_NAME}"
+                        
+                        # 测试运行
+                        if "${INSTALL_DIR}/${BINARY_NAME}" --version &> /dev/null || "${INSTALL_DIR}/${BINARY_NAME}" --help &> /dev/null; then
+                            print_success "二进制文件验证通过"
+                        else
+                            print_warning "二进制文件可能不完整，但已安装"
+                        fi
+                        
+                        rm -f "$temp_file"
+                        return 0
+                    else
+                        print_error "二进制文件不可执行"
+                    fi
                 else
                     print_warning "解压后未找到二进制文件 ${ORIGINAL_BINARY_NAME}"
+                    echo "解压目录内容:"
+                    ls -la /tmp/ | grep rpxy || echo "未找到相关文件"
                 fi
             else
-                print_warning "解压失败"
+                print_error "解压失败"
+                echo "尝试手动解压查看错误:"
+                tar -tzf "$temp_file" 2>&1 | head -n 10
             fi
         else
-            print_warning "下载的文件不是有效的 gzip 压缩包"
+            print_warning "下载的文件不是有效的压缩包"
+            echo "这可能是 GitHub 重定向页面或错误页面"
         fi
+        
         rm -f "$temp_file"
     else
-        print_warning "预编译二进制文件不可用"
+        print_warning "下载失败"
     fi
     
     # 下载失败或解压失败，从源码编译
