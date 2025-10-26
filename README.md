@@ -682,6 +682,38 @@ apt-get install tesseract-ocr-chi-sim tesseract-ocr-eng
 ocrmypdf -l chi_sim+eng input.pdf output.pdf
 ```
 
+### PDF识别并转换为HTML[使用MinerU]
+Linux使用NVIDIA显卡vlm-vllm后端加速
+```
+pip install mineru[all]
+```
+```
+mineru -p /path/to/file/file.pdf -o /path/to/file/ -b vlm-vllm-engine -l en 
+```
+Mac使用pipeline后端mps加速
+```
+pip install -U "mineru[core]"
+```
+```
+mineru -p /path/to/file/file.pdf -o /path/to/file/  -l en -d mps 
+```
+使用pandoc将md文件转换为单个HTML文件
+```
+apt-get install pandoc
+brew install pandoc
+```
+```
+pandoc /path/to/file/file.md -o /path/to/file/output.html \
+  --standalone \
+  --toc \
+  --toc-depth=3 \
+  --mathjax \
+  --highlight-style=tango \
+  --css=style.css
+```
+
+
+
 ### Mac配置 VS Code环境变量
 ```
 打开 vscode
