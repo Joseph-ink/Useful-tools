@@ -334,44 +334,44 @@ iface eth0 inet6 static
 ### CDN优选
 #### 包含Cloudflare、Cloudfront ip段，数据来自BGP工具
 ```
-# 如果是第一次使用，则建议创建新文件夹（后续更新请跳过该步骤）
-mkdir CloudflareST
+如果是第一次使用，则建议创建新文件夹（后续更新请跳过该步骤）
+mkdir csft
 
-# 进入文件夹（后续更新，只需要从这里重复下面的下载、解压命令即可）
-cd CloudflareST
+进入文件夹（后续更新，只需要从这里重复下面的下载、解压命令即可）
+cd csft
 
-# 下载 CloudflareST 压缩包
-# x86_64
-wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.4/CloudflareST_linux_amd64.tar.gz
+下载 CloudflareST 压缩包
+x86_64
+wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.3.4/cfst_linux_amd64.tar.gz
 
-# arm64
-wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.4/CloudflareST_linux_arm64.tar.gz
+arm64
+wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.3.4/cfst_linux_arm64.tar.gz
 
-# 解压
-tar -zxf CloudflareST_linux_amd64.tar.gz
+解压
+tar -zxf cfst_linux_amd64.tar.gz
 
-# 赋予执行权限
-chmod +x CloudflareST
+赋予执行权限
+chmod +x cfst
 
-# IPv6优选：
-# (可选)第一步：更换默认ipv6地址集，扫描Cloudflare全部ipv6 /48地址块（或者本地上传txt）
+IPv6优选：
+(可选)第一步：更换默认ipv6地址集，扫描Cloudflare全部ipv6 /48地址块（或者本地上传txt）
 rm -rf ipv6.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv6_all.txt && chmod +x cf_ipv6_all.txt
 
-#（可选）首次运行IPv6延迟测试，不含下载测速
-# ./CloudflareST -f cf_ipv6.txt -p 200 -tll 15 -tl 150 -tlr 0.1 -dd
-# 结果保存在result.csv，SSH也会显示
+（可选）首次运行IPv6延迟测试，不含下载测速
+./cfst -f cf_ipv6.txt -p 200 -tll 15 -tl 150 -tlr 0.1 -dd
+结果保存在result.csv，SSH也会显示
 
-#（必选）将筛选后的低延迟HK IPv6进行速度测试
-./CloudflareST -f cf_ipv6_hk.txt -p 200 -tll 15 -tl 150 -tlr 0.1
+（必选）将筛选后的低延迟HK IPv6进行速度测试
+./cfst -f cf_ipv6_hk.txt -p 200 -tll 15 -tl 150 -tlr 0.1
 
-# IPv4优选：
+IPv4优选：
 rm -rf ip.txt
 wget -N --no-check-certificate https://raw.githubusercontent.com/Joseph-ink/Useful-tools/main/cf_ipv4_all.txt && chmod +x cf_ipv4_all.txt
-./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150
+./cfst -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150
 
-# 其他CDN IPv4优选（使用自定义测速链接和80端口HTTP下载）：
-./CloudflareST -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150 -tp 80 -url http://xxx/xxx
+其他CDN IPv4优选（使用自定义测速链接和80端口HTTP下载）：
+./cfst -f cf_ipv4_all.txt -p 200 -tll 15 -tl 150 -tp 80 -url http://xxx/xxx
 
 确认中港直连cloudflare地址段 详见cf_ipv6_hk.txt
 ```
