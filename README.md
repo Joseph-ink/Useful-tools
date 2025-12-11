@@ -445,7 +445,7 @@ systemctl restart ssh
 
 ### 设置 SSHD 的 ClientAliveInterval 和 ClientAliveCountMax
 
-** 编辑 SSH 服务器的配置文件 `/etc/ssh/sshd_config` **
+**编辑 SSH 服务器的配置文件** `/etc/ssh/sshd_config`
 ```
 vi /etc/ssh/sshd_config
 ```
