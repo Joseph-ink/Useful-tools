@@ -442,6 +442,29 @@ systemctl restart ssh
 
 可以使用新的SSH私钥通过`root`用户登录你的VPS
 
+
+### 设置 SSHD 的 ClientAliveInterval 和 ClientAliveCountMax
+
+** 编辑 SSH 服务器的配置文件 `/etc/ssh/sshd_config` **
+```
+vi /etc/ssh/sshd_config
+```
+
+ClientAliveInterval：设置服务器在未收到客户端任何数据后，发送一个“保持活动”消息的间隔时间，单位为秒。
+ClientAliveCountMax：设置服务器在终止连接前，可以发送的“保持活动”消息的数量。
+最终的超时时间 ClientAliveInterval * ClientAliveCountMax。
+示例：
+15 分钟（300 秒 * 3 次尝试 = 900 秒）的超时时间：
+```
+ClientAliveInterval 300
+ClientAliveCountMax 3
+```
+重启 SSH 服务
+```
+sudo systemctl restart sshd
+```
+
+
 ### Oracle Cloud VPS在ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口限制命令
 ```
 #开放所有端口
