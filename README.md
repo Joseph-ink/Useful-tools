@@ -461,8 +461,11 @@ ClientAliveCountMax 3
 ```
 重启 SSH 服务
 ```
-sudo systemctl restart sshd
+systemctl daemon-reload
+systemctl restart ssh
 ```
+
+
 
 
 ### Oracle Cloud VPS在ubuntu系统下会存在额外的防火墙，以下为删掉防火墙与端口限制命令
