@@ -428,7 +428,7 @@ chmod 600 /root/.ssh/authorized_keys
 PermitRootLogin yes
 ```
 
-如果是`no`或者`prohibit-password`，修改为`yes`。
+如果是`no`,修改为`prohibit-password`。
 
 4. 重启 SSH 服务
 
