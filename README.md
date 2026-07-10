@@ -425,7 +425,7 @@ chmod 600 /root/.ssh/authorized_keys
 你还需要确认SSH服务配置允许`root`用户登录。编辑`/etc/ssh/sshd_config`文件，确保以下行被正确配置：
 
 ```bash
-PermitRootLogin yes
+PermitRootLogin prohibit-password
 ```
 
 如果是`no`,修改为`prohibit-password`。
