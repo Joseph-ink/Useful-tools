@@ -738,7 +738,35 @@ pandoc /path/to/file/file.md -o /path/to/file/output.html \
   --css=style.css
 ```
 
+### 使用Mosh提升VPS连接稳定性
+直接粘贴使用
+```
+sudo apt update
+sudo apt install -y locales mosh tmux ncurses-bin
 
+# 启用英文 UTF-8 与中文 UTF-8 locale
+sudo sed -i 's/^# *en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+sudo sed -i 's/^# *zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/' /etc/locale.gen
+sudo locale-gen
+
+# 系统默认 locale：系统消息英文，字符宽度按中文 UTF-8 处理
+sudo update-locale LANG=en_US.UTF-8 LC_CTYPE=zh_CN.UTF-8
+
+# 给交互 shell 做兜底
+cat >> ~/.bashrc <<'EOF'
+
+# Mosh + CJK terminal rendering fix
+export LANG=en_US.UTF-8
+export LC_CTYPE=zh_CN.UTF-8
+[ "$TERM" = "xterm" ] && export TERM=xterm-256color
+EOF
+```
+
+**调整Termius Mosh 启动参数**
+```
+mosh-server new -s -c 256 -l LANG=en_US.UTF-8 -l LC_CTYPE=zh_CN.UTF-8
+```
+Termius对于mosh的实现存在一定问题，体现在中文残留无法清除。
 
 ### Mac配置 VS Code环境变量
 ```
