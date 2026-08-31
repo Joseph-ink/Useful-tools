@@ -56,9 +56,9 @@ install_realm() {
 
   latest_version=$(curl -s https://api.github.com/repos/zhboner/realm/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
   if [[ "$arch" == "x86_64" ]]; then
-    wget "https://github.com/zhboner/realm/releases/download/${latest_version}/realm-x86_64-unknown-linux-gnu.tar.gz"
+    wget "https://gh-proxy.org/https://github.com/zhboner/realm/releases/download/${latest_version}/realm-x86_64-unknown-linux-gnu.tar.gz"
   else
-    wget "https://github.com/zhboner/realm/releases/download/${latest_version}/realm-aarch64-unknown-linux-gnu.tar.gz"
+    wget "https://gh-proxy.org/https://github.com/zhboner/realm/releases/download/${latest_version}/realm-aarch64-unknown-linux-gnu.tar.gz"
   fi
 
   tar -xzf *.tar.gz
